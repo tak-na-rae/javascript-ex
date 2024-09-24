@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>240924</title>
+  <style>
+    .size13 {
+  font-size: 13px;
+}
+
+.red {
+  color: red;
+}
+
+.green {
+  color: green;
+}
+
+.blue {
+  color: blue;
+}
+
+.bold {
+  font-weight: bold;
+}
+
+.black {
+  color: black;
+}
+
+.purple {
+  color: purple;
+}
+
+.border2px {
+  border: dashed 2px #f00;
+}
+
+.size20 {
+  font-size: 20px;
+}
+
+.bgYellow {
+  background-color: yellow;
+}
+
+.orange {
+  color: orange;
+}
+
+.right {
+  text-align: right;
+}
+
+.center {
+  text-align: center;
+}
+
+.bgCcc {
+  background-color: #ccc;
+}
+
+.border1px {
+  border: 1px solid #000;
+}
+  </style>
+</head>
+<body>
+  <div id="wrap">
+    <h1>바닐라 자바스크립트</h1>
+    <h2 id="firstTitle">선택자</h2>
+    <h3 class="nextTitle">부모 요소 선택자</h3>
+    <div>
+      <p class="obj1">현재 id가 "obj1"인 요소를 기준으로, 부모 요소는 'div'요소입니다.</p>
+    </div>
+    <h3>자식 요소 선택자 (obj3)</h3>
+    <ul class="obj3">
+      <li>리스트1</li>
+      <li class="theObj1">리스트2</li>
+      <li>리스트3</li>
+    </ul>
+    <h3>형 요소 선택자 (obj4)</h3>
+    <ul>
+      <li>리스트4</li>
+      <li class="obj4">리스트5</li>
+      <li>리스트6</li>
+    </ul>		
+    <h3>동생 요소 선택자 (obj5)</h3>
+    <ul>
+      <li>리스트7</li>
+      <li class="obj5">리스트8</li>
+      <li>리스트9</li>
+    </ul>		
+    <h3>형제 요소들 선택자</h3>
+    <ul>
+      <li>리스트10</li>
+      <li class="obj6">리스트11</li>
+      <li>리스트12</li>
+    </ul>
+    <h3>입력 요소 선택자</h3>
+    <p><label for="user_name">이름</label> 
+      <input type="text" name="user_name" id="user_name" />
+    </p>
+  </div>
+
+  <script>
+    addEventListener('load', function() {
+      const all = document.querySelectorAll('*');
+      // console.log(all)
+      for(let i = 0; i < all.length; i++){
+        var item = all[i];
+        item.style.fontSize = "13px";
+      }
+      
+      var h1Element = document.querySelector('h1');
+      h1Element.style.color = "red";
+      var firstTitle = document.querySelector('#firstTitle');
+      firstTitle.style.color = "blue";
+      var nextTitle = document.querySelector('.nextTitle');
+      nextTitle.style.color = "green";
+
+      // 부모요소선택
+      // var obj5Parent = document.querySelector('.obj5').parentElement.style.border = "1px solid red";
+      var obj5Parent = document.querySelector('.obj5').parentElement.style.cssText = "border:1px solid red; text-align:right;";
+      // 형제 선택
+      var obj4prev = document.querySelector('.obj4').previousElementSibling.style.color = "orangered";
+      var obj4next = document.querySelector('.obj4').nextElementSibling.style.color = "orange";
+      // 자식(후손)찾기 선택
+      var theObj1 = document.querySelector('.obj3').querySelector('.theObj1').style.color = "pink";      
+      // 자식요소
+      var obj6 = document.querySelector('.obj6').parentElement.children[0].style.color = "red";
+      
+      // 클래스 추가/제거
+      document.querySelector('.theObj1').nextElementSibling.classList.add('purple');
+      document.querySelector('.obj1').classList.remove('obj1');
+      // 인라인 스타일 속성 제거(removeAttr('style'))
+      // document.querySelector('#wrap').style.removeProperty('font-size');
+      document.querySelector('#wrap').removeAttribute("style");
+    })
+  </script>
+</body>
+</html>

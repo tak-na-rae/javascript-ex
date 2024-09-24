@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>240923</title>
+</head>
+<body>
+  
+  <div class="box1">
+    <h2>confirm</h2>
+    <button onclick="confirmDialogBox();">Confirm 대화상자</button>
+    <p id="text1"></p>
+  </div>
+  <div class="box2">
+    <h2>prompt</h2>
+    <button onclick="promptDialogBox()">prompt 대화상자</button>
+    <p id="text2"></p>
+  </div>
+  <p id="text3"></p>
+
+  <script>
+    // window.alert('alert')
+    // document.write('머라머라');
+    // document.querySelector('.test')
+    // document.getElementsByClassName('test');
+
+    function confirmDialogBox(){ // 확인=true, 취소=fasle
+      var str;
+      if(confirm("확인이나 취소를 눌러주세요!") == true){
+        str = "확인을 눌렀습니다."
+      } else {
+        str = "취소를 눌렀습니다."
+      }
+      document.getElementById('text1').innerHTML = str;
+    }
+    function promptDialogBox(){
+      // 안내메세지 : value
+      var inputStr = prompt("이름을 입력해주세요!" , "")
+      if(inputStr != null){
+        document.getElementById('text2').innerHTML = "당신의 이름은 " + inputStr + "입니다";
+      }
+    }
+
+    // alert('나래');
+
+    // var string = prompt('뭐라고요?')
+    // document.getElementById('text3').innerHTML = string;
+
+</script>
+</body>
+</html>
