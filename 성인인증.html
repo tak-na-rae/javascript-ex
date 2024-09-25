@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>240925</title>
+  <style>
+    * { padding:0; margin:0; box-sizing:border-box; }
+    body { padding:50px; }
+    input,button { height:60px; padding:0 20px; border:1px solid #e2e2e2; outline:none; vertical-align:top; }
+    input { font-size:18px; font-weight:700; }
+    button { width:100px; margin-left:8px; font-size:15px; white-space:nowrap; cursor:pointer; display:inline-block; }
+    p { margin-top:4px; font-size:13px; color:red; }
+  </style>
+</head>
+<body>
+  
+  <input type="text" id="myInput"/><button onclick="qualified()">성인인증</button>
+  <p>당신의 나이를 숫자로 입력한 후 성인인증 버튼을 눌러주세요.</p>
+
+  <script>
+    function qualified(){
+      const myput = document.getElementById('myInput');
+      const num = myput.value;
+      if(num == ''){
+        alert('정보를 입력해주세요');
+      } else if(num >= 19){
+        alert('성인입니다');
+      } else if (num < 19){
+        alert('미성년입니다');
+      } else {
+        alert('숫자만 입력해주세요');
+      }
+    }
+  </script>
+</body>
+</html>
