@@ -10,24 +10,21 @@
 
   <script>
     // 평균체중 공식 = (키 - 100) * 0.9
-    // let name = prompt("당신의 이름은?",'');
     let height = prompt("당신의 신장은?",'');
     let weight = prompt("당신의 몸무게는?",'');
-    // let normalH = (height - 100) * 0.9; 
-    // let normalW = normalH - weight; 
-
     let normalW = (height - 100) * 0.9; // 평균체중공식
-    if(weight > normalW + 5) {
-      alert('과체중');
-    } else if(weight < normalW - 5) {
-      alert('저체중');
-    } else {
-      alert('정상체중');
-    }
 
+    // if풀어서
+    // if(weight > normalW + 5) {
+    //   alert('과체중');
+    // } else if(weight < normalW - 5) {
+    //   alert('저체중');
+    // } else {
+    //   alert('정상체중');
+    // }
 
-
-
+    //축약형
+    weight > normalW - 5 ? (weight < normalW +5 ? alert(name + "님은 적정체중임") : alert(name + "님은 과체중임")) : alert(name + "님은 저체중임");
   </script>
 </body>
 </html>
