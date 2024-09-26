@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>240926</title>
+</head>
+<body>
+  
+  <script>
+    //여러개의 조건이 같은 값을 공유하는 경우
+    let val = prompt('1-9 숫자입력');
+    let answer = '';
+    val = Number(val);
+    switch(val){
+      case 1: case 2: case 3:
+        answer = 'Low';
+        break;
+      case 4: case 5: case 6:
+        answer = 'Mid';
+        break;
+      case 7: case 8: case 9:
+        answer = 'High';
+        break;
+      default : 
+        answer = '1~9 사이의 숫자만 입력해라';
+        break;
+      }
+      document.write(answer);
+  </script>
+</body>
+</html>

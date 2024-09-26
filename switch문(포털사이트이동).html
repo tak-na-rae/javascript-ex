@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>240926</title>
+</head>
+<body>
+  
+  <script>
+    let site = prompt('네이버/다음/구글/네이트 중 무슨 사이트');
+    let url; //링크 주소 담을 변수
+    switch(site){
+      case "네이버" :
+        url = "https://naver.com";
+        break;
+      case "다음" :
+        url = "https://daum.net";
+        break;
+      case "네이트" :
+        url = "https://nate.com";
+        break;
+      case "구글" :
+        url = "https://google.com";
+        break;
+      default : alert('다시');
+      location.reload();
+    }
+    if(url) location.href = url;
+    console.log(site);
+  </script>
+</body>
+</html>
