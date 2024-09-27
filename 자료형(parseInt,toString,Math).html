@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>240927</title>
+</head>
+<body>
+
+  <script>
+    // ======
+    // lazy evaluation ** 정수(true), 0(false)
+    let a = 2, b = 0;
+    console.log("a||b", a || b); // --- [||] 둘 다 true면 앞에만 출력(하나면true)
+    console.log("b||a", b || a);
+    console.log("a&&b", a && b); // --- [&&] 둘 다 true면 뒤에만 출력(하나면false)
+    console.log("b&&a", b && a);
+
+    let person1 = {
+      name : "홍길동"
+    }, person2 = null;
+    console.log(person1 && person1.name);
+
+    // 숫자형 ======
+    let abc = '3.1213213px';
+    console.log('parseInt===', parseInt(abc)); // parseInt 문자형 구분해서 정수만 반환(3.435435 > 3으로 반환)
+    console.log('parseFloat===', parseFloat(abc)); // parseFloat 문자형 구분해서 소수점 숫자형으로 반환
+    console.log('Number===', Number(abc)); // Number 순수한 문자만 반환
+
+    // 문자형 ======
+    let def = 132.45646546;
+    console.log('toString===', def.toString());
+    console.log('typeof===', typeof(def));
+
+    // Math.숫자 ======
+    console.log('Math.round===', Math.round(def)) //반올림
+    console.log('Math.floor===', Math.floor(def)) //올림
+    console.log('Math.ceil===', Math.ceil(def)) //내림
+
+    // Math.계산 ======
+    console.log('Math.min===', Math.min(2, 3, 5)); //최소값 출력
+    console.log('Math.max===', Math.max(2, 3, 5)); //최대값 출력
+    console.log('Math.ramdom===', Math.random()*100+1); // Math.random()*최대값+최소값
+    console.log('Math.floor(Math.ramdom)===', Math.floor(Math.random()*100+1)); // 소수점 제외하고
+    let max1 = 10;
+    let min1 = 2;
+    for(let i = 0; i < 20; i++){ //for문 쓸때 ) + min 사용
+      let aaa = Math.floor(Math.random() * (max1 - min1 + 1) + min1);
+      // console.log(aaa);
+    }
+
+    // 페이지수 계산 ======
+    let memberCount = 31;
+    let pageSize = 10;
+    let pageCount = memberCount / pageSize;
+    document.write(Math.ceil(memberCount / pageSize));
+  </script>
+  
+</body>
+</html>

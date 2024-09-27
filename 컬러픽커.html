@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>240927</title>
+  <style>
+    body {
+        text-align: center;
+        font-family: sans-serif;
+        display: grid;
+        place-items: center;
+        height: 100vh;
+        background: #000;
+    }
+    div {
+        background: #fff;
+        padding: 2rem;
+        border-radius: 1rem;
+        width: 14rem;
+        box-shadow: 0 0 1rem rgba(0,0,0,.5);
+    }
+  </style>
+</head>
+<body>
+  <div>
+    <p id="colorText">컬러 코드 검색</p>
+    <input type="color" id="colorPicker"/>
+  </div>
+
+  <script>
+    console.log(document.querySelector('#colorPicker').value);
+    document.querySelector('#colorPicker').textContent = "컬러코드 : " + document.querySelector('#colorPicker').value; //ES5
+    document.querySelector('#colorPicker').textContent = `컬러 코드 : ${document.querySelector("#colorPicker").value}`; //ES6
+    
+    const text = document.querySelector('#colorText');
+    const color = document.querySelector('#colorPicker');
+    const colorBg = ()=>{ // ES6 / function colorBg(){}와 같음
+      if(color.value == '#ffffff'){
+        text.textContent = `컬러코드 : ${color.value} (white)`;  
+      } else if (color.value == '#000000') {
+        text.textContent = `컬러코드 : ${color.value} (black)`;  
+      } else {
+        text.textContent = `컬러코드 : ${color.value}`;  
+      }
+      document.body.style.backgroundColor = color.value;
+    };
+    color.addEventListener('input', colorBg); // ES6는 무조건 아래에서 호출
+
+  </script>
+</body>
+</html>

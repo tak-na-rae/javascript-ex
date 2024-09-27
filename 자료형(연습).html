@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>240927</title>
+</head>
+<body>
+
+  <script>
+    // 연습 ======
+    let min1 = 10;
+    let max1 = 20;
+    for(let i = 0; i < 20; i++){
+      let aaa = Math.floor(Math.random() * (max1 - min1 + 1) + min1);
+      // console.log(aaa);
+    }
+
+    // Math.floor(Math.random() * 6); //최소가 0일때
+    // Math.floor(Math.random() * 100+1); //최소가 1일때
+    // Math.floor(Math.random() * (maxx - minn + 1) + minn); //최소,최대가 유동적일때
+
+    var randomNum = Math.floor(Math.floor(Math.random() * 6));
+    var trial = 0;
+    var find = false;
+    // console.log(randomNum);
+    while( find == false ){
+        var predictNum = prompt("0~5사이의 숫자를 예측하시오");
+        trial ++;
+        if(predictNum == randomNum){
+            console.log("임의의 숫자는 " + predictNum +"입니다.");
+            find = true;
+        }
+        else if(predictNum > randomNum){
+          console.log("예측값이 임의의 숫자보다 큽니다.");
+        }
+        else{
+          console.log("예측값이 임의의 숫자보다 작습니다.");
+        }
+    }
+    console.log(trial + "번 만에 임의의 숫자를 찾았습니다.");
+  </script>
+  
+</body>
+</html>

@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>240927</title>
+    <style>
+      .accordion{width:100%;padding:18px;text-align:left;background:#eee;color:#444;border:0;transition:.25s ease;cursor:pointer;}
+      .accordion:hover { background:#ccc; }
+      .accordion::after { content:'/02795'; float:right; font-size:13px; color:#777; }
+      .accordion.active::after { content:'/02796'; }
+      .panel { max-height:0; padding:0 18px; background:#fff; overflow:hidden; transition:.25s ease; }
+    </style>
+  </head>
+  <body>
+    <button class="accordion">Section1</button>
+    <div class="panel">
+      <p>
+        Lorem ipsum dolor sit amet consectetur adipisicing elit. Quis, optio
+        porro! Adipisci inventore ex rem aperiam autem perspiciatis, quam totam
+        excepturi esse. Dolorem, provident dolorum eos ullam voluptas aliquam!
+        Labore.
+      </p>
+    </div>
+    <button class="accordion">Section2</button>
+    <div class="panel">
+      <p>
+        Lorem ipsum dolor sit amet consectetur adipisicing elit. Quis, optio
+        porro! Adipisci inventore ex rem aperiam autem perspiciatis, quam totam
+        excepturi esse. Dolorem, provident dolorum eos ullam voluptas aliquam!
+        Labore.
+      </p>
+    </div>
+    <button class="accordion">Section3</button>
+    <div class="panel">
+      <p>
+        Lorem ipsum dolor sit amet consectetur adipisicing elit. Quis, optio
+        porro! Adipisci inventore ex rem aperiam autem perspiciatis, quam totam
+        excepturi esse. Dolorem, provident dolorum eos ullam voluptas aliquam!
+        Labore.
+      </p>
+    </div>
+  
+    <script>
+      const acc = document.getElementsByClassName('accordion');
+      for(let ac of acc){
+        ac.addEventListener('click', ()=>{
+          ac.classList.toggle('active');
+
+          const panel = ac.nextElementSibling;
+          if(panel.style.maxHeight){
+            panel.style.maxHeight = null;
+          } else {
+            panel.style.maxHeight = panel.scrollHeight + 'px';
+          }
+          
+        })
+      }
+  </script>
+  </body>
+</html>
