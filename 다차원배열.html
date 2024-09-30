@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>240930</title>
+</head>
+<body>
+  
+  <script>
+    for(let i = 1; i <= 6; i++){
+      console.log(i)
+      for(let j = 1; j <=3; j++){
+        console.log('j=====', j)
+        if(i+j === 6) console.log(`[${i},${j}]`);
+      }
+    }
+    // 2차원 배열 ==========
+    let a = [[1,2,3],[4,5,6],[7,8,9]];
+    // console.log(a[1][1]);
+    for(let i = 0; i < a.length; i++){
+      for(let j = 0; j < a[i].length; j++){
+        console.log('2차원==', a[i][j])
+      }
+    }
+
+    let aa = [1,2,3];
+    let bb = [4,5,6];
+    let cc = [7,8,9];
+    let abc = [aa,bb,cc];
+    for(let i = 0; i < a.length; i++){
+      for(let j = 0; j<a[i].length; j++){
+        console.log('2차원(2)==', a[i][j]);
+      }
+    }
+
+    // 3차원 배열 ==========
+    let q = [[[1,2],[3,4]], [[5,6],[7,8]], [[9,10],[11,12]]];
+    for(let i = 0; i < q.length; i++){
+      for(let j = 0; j < q[i].length; j++){
+        for(let k = 0; k < q[i][j].length; k++){
+          console.log('===', q[i][j][k]);
+        }
+      }
+    }
+
+  </script>
+</body>
+</html>
