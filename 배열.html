@@ -11,8 +11,49 @@
     let abc = [1,2,3];
     console.log(abc);
     for(let i = 0; i < abc.length; i++){
-      console.log(abc[i]);
+      console.log('1=====', abc[i]);
     }
+
+    let a = [1,2,3,4];
+    console.log('2=====', a[2]);
+
+    let abcd = ['one','two','three','four'];
+    for(let i = 0; i < a.length; i++){
+      console.log('3=====', abcd[i]);
+    }
+
+    let ccc = [3,4,5,6,7,8];
+    let [e1, e2, ...e3] = ccc;
+    console.log('4=====', e1,e2); //3,4
+    console.log('4=====', e3); // 5,6,7,8 나머지 배열
+
+    // sort 정렬
+    let e = [3,1,6,2,4,8,10,5,11,7,9];
+    e.sort(compareNumber);
+    console.log(e);
+    function compareNumber(i,j){
+      //첫번째 매개변수 - 두번째 매개변수 = 작은값 > 큰값 정렬
+      //두번째 매개변수 - 첫번째 매개변수 = 큰값 > 작은값 정렬
+      return i - j;
+      console.log(i-j);
+    }
+
+    let cars = ['소형차','중형차','대형차'];
+    let sport = '스포츠카';
+    let bus = '버스';
+    // 1.스포츠카,소형차,중형차,대형차
+    cars.unshift (sport);
+    console.log('1===', cars)
+    // 2.스포츠카,소형차,중형차,대형차,버스
+    cars.push(bus);
+    console.log('2===', cars)
+    // 3.스포츠카,소형차,대형차,버스
+    cars.splice(2,1); //위치,개수
+    console.log('3===', cars)
+    // 4.대형차,버스,소형차,스포츠카
+    cars.sort();
+    console.log('4==', cars);
+  
   </script>
 </body>
 </html>
