@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>241002</title>
+</head>
+<body>
+  
+  <script>
+    const tempString = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
+    for(let i = 0; i < tempString; i++){
+      (i%7 !== 0 || i == 0) ? document.write(tempString[i]) : document.write('*');
+    }
+  </script>
+</body>
+</html>

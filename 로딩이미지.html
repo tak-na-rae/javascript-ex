@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>241002</title>
+  <style>
+    img:not([src*='loading']) { width:100%; height:300px; object-fit:cover; }
+    #loading { background:#ddd; position:fixed; z-index:999; inset:0; display:grid; place-items:center; }
+    .gallery { display:grid; gap:10px; grid-template-columns:repeat(auto-fit, minmax(300px, 1fr)); }
+    .loaded { opacity:0; visibility:hidden; }
+  </style>
+</head>
+<body>
+  
+  <div id="loading">
+    <img src="images/241002_loading.png" alt="로딩이미지" class="spinner">
+  </div>
+  <div class="gallery"></div>
+
+  <script>
+    const gallery = document.querySelector('.gallery');
+    for(let i = 1; i <= 12; i++){
+      gallery.innerHTML += `<div class="item"><img src="images/241002_img${i}.jpg"></div>`
+    }
+    const loading = document.querySelector('#loading');
+    window.addEventListener('load', ()=>{
+      loading.classList.add('loaded');
+    })
+  </script>
+</body>
+</html>

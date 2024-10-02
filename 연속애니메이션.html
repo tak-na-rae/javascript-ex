@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>241002</title>
+  <style>
+    * { padding:0; margin:0; box-sizing:border-box; }
+    .box { width:320px; height:240px; position:relative; background:transparent url(images/241002_bg.jpg)no-repeat center/cover; }
+    .box img { position:absolute; display:none; }
+  </style>
+</head>
+<body>
+  
+  <div class="box"></div>
+
+  <script>
+    const parent = document.querySelector('.box');
+    const arrangeImg = ()=>{
+      for(let i = 0; i < 21; i++){
+        parent.innerHTML += `<img src='images/seq${i}.png' alt='이미지${i}'>`;
+      }
+      // console.log(parent.firstElementChild)
+      parent.firstElementChild.style.display = 'inline';
+      
+    }
+    arrangeImg();
+
+    let timer; // setInterval 함수 호출할때 id값 저장할 변수 생성
+    let count = 0; // setInterval에서 주기적으로 함수 호출할때 img 위치 저장
+    parent.addEventListener('mouseover',()=>{
+      if(timer) clearInterval(timer);
+      timer = setInterval(nextFrame,50);
+    })
+    parent.addEventListener('mouseout',()=>{
+      if(timer) clearInterval(timer);
+      timer = setInterval(prevFrame, 50);
+    })
+    const imageItems = document.querySelectorAll('.box img');
+    const prevFrame = ()=>{
+      imageItems[count].style.display = 'none';
+      count -= 1;
+      if(count < 0){
+        count = 0;
+        clearInterval(timer);
+      }
+      imageItems[count].style.display = 'inline';
+    }
+    const nextFrame = ()=>{
+      imageItems[count].style.display = 'none';
+      count += 1; // 또는 count++;
+      if(count > imageItems.length - 1){
+        count = imageItems.length - 1;
+        clearInterval(timer);
+      }
+      imageItems[count].style.display = 'inline';
+    }
+
+  </script>
+</body>
+</html>

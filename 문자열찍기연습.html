@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>241002</title>
+</head>
+<body>
+  
+  <p id="typing"></p>
+
+  <script>
+    let x = 'Heaven helps those who help themselves';
+    let i = 0;
+    const typing = document.querySelector('#typing');
+    const typeWriter = ()=>{
+      if(i < x.length){
+        typing.textContent += x[i];
+        i++;
+        setTimeout(typeWriter,200);
+      } else {
+        i = 0;
+        setTimeout(recall,1000); //1초뒤 호출
+      }
+    }
+    function recall(){
+        typing.textContent = '';
+        typeWriter();
+      }
+    typeWriter();
+  </script>
+</body>
+</html>
