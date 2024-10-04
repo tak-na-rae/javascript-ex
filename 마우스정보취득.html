@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>241004</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+    }
+
+    #wrapper {
+      width: 3000px;
+      height: 3000px;
+    }
+
+    #box {
+      width: 400px;
+      height: 400px;
+      margin-top: 100px;
+      margin-left: 100px;
+      position: fixed;
+      border: 2px solid blue;
+    }
+
+    #box > p {
+      padding: 100px;
+    }
+  </style>
+</head>
+<body>
+  
+  <div id="wrapper">
+    <div id="box">
+      <p>
+        clientX = <span id="clientx">0</span><br>
+        clientY = <span id="clienty">0</span><br>
+        offsetX = <span id="offsetx">0</span><br>
+        offsetY = <span id="offsety">0</span><br>
+        pageX = <span id="pagex">0</span><br>
+        pageY = <span id="pagey">0</span><br>
+        screenX = <span id="screenx">0</span><br>
+        screenY = <span id="screeny">0</span>
+      </p>
+    </div>
+  </div>
+
+  <script>
+    const box = document.querySelector('#box');
+    box.addEventListener('mousemove', (e)=>{
+      const clientX = document.querySelector('#clientx').textContent = e.clientX;
+      const clientY = document.querySelector('#clienty').textContent = e.clientY;
+      const offsetX = document.querySelector('#offsetx').textContent = e.offsetX;
+      const offsetY = document.querySelector('#offsety').textContent = e.offsetY;
+      const pageX = document.querySelector('#pagex').textContent = e.pageX;
+      const pageY = document.querySelector('#pagey').textContent = e.pageY; //스크롤 이동값을 포함
+      const screenX = document.querySelector('#screenx').textContent = e.screenX;
+      const screenY = document.querySelector('#screeny').textContent = e.screenY; //모니터화면 기준
+    })
+  </script>
+</body>
+</html>

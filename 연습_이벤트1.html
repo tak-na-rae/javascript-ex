@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>241004</title>
+  <style>
+    input { outline:none; border:0; border-radius:0; }
+    input[name="search"] { width:250px; padding:5px; border:1px solid #aaa; }
+
+  </style>
+</head>
+<body>
+
+  <input type="text" name="search"
+  onkeydown="mySearch(event)" placeholder="검색어 입력 후, 엔터를 클릭하세요.">
+  <button class="btn_test" disabled>Enter</button>
+
+  <script>
+    const btn = document.querySelector('.btn_test');
+    // 같으나 remove의 기능이 다름(react)
+    btn.onclick = ()=>{
+      // alert(123);
+    }
+    btn.addEventListener('click', ()=>{
+      // alert(123);
+    })
+
+    const mySearch = (event)=>{
+      if(event.keyCode == 13) alert(event.target.value); //input에 담은 값 엔터눌렀을때 alert으로 출력
+      // event : key값 출력
+      // event.target : input태그 출력
+      // event.target.style.border = '1px solid red';
+    }
+
+    // document.querySelector('input[name="search"]').addEventListener('input',()=>{})
+    let inputTyping = document.querySelector('input[name="search"]');
+    inputTyping.addEventListener('input', ()=>{
+      if(inputTyping.value == '') {
+        inputTyping.removeAttribute('style');
+        btn.disabled = true;
+      } else {
+        inputTyping.style.border = '1px solid red';
+        btn.disabled = false;
+      }
+    })
+  </script>
+</body>
+</html>

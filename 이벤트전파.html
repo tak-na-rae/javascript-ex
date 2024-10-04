@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>241004</title>
+    <style>
+      * {
+        padding:0;
+        margin:0;
+      }
+      body {
+        margin-top:60px;
+        margin-left:300px;
+      }
+      #wrapper {
+        width:200px;
+        height:200px;
+        padding:150px;
+        background-color:yellow;
+        border:1px solid red;
+      }
+      #targetBox {
+        width:200px;
+        height:200px;
+        background-color:red;
+        color:#fff;
+      }
+    </style>
+  </head>
+  <body>
+    <div id="wrapper">
+      <div id="targetBox"></div>
+    </div>
+
+    <script>
+      const wrapper = document.querySelector('#wrapper');
+      const box = document.querySelector('#targetBox');
+
+      wrapper.addEventListener('click', ()=>{
+        wrapper.style.backgroundColor = 'lightcyan';
+      })
+      box.addEventListener('click', (e)=>{
+        e.stopPropagation(); //자식 클릭했을떄 부모한테 전달되지 않도록 버블링 차단
+        box.style.backgroundColor = '#222';
+      })
+      
+    </script>
+  </body>
+</html>

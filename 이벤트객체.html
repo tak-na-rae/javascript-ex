@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>241004</title>
+  <style>
+    div + div { margin-top:60px; }
+  </style>
+</head>
+<body onclick="showCoords(event)" style="height:600px; margin:0;">
+  
+  <div>
+    <p>click</p>
+    <em class="message"></em>
+  </div>
+
+  <div>
+    <input type="checkbox">
+    <em class="message2"></em>
+  </div>
+
+  <script>
+    // 마우스 위치값 확인
+    const $msg = document.querySelector('.message');
+    function showCoords(e) {
+      $msg.textContent = `clientX : ${e.clientX}, clientY : ${e.clientY}`;
+    }
+
+    //체크박스 checked 속성 확인
+    const $chkbox = document.querySelector('input[type=checkbox]');
+    const $msg2 = document.querySelector('.message2');
+    $chkbox.onchange = e => {
+      $msg2.textContent = e.target.checked ? 'on' : 'off';
+    };
+  </script>
+</body>
+</html>

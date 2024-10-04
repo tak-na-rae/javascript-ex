@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>241004</title>
+</head>
+<body>
+  
+  <h1>class가 items인 요소를 선택 하세요</h1>
+  <ul>
+    <li id="firstEl">첫 번째 아이템이에요!</li>
+    <li id="secondEl">두 번째 아이템이에요!</li>
+    <li class="items">세 번째 아이템이에요!</li>
+    <li class="items">네 번째 아이템이에요!</li>
+    <li id="lastEl">다섯 번째 아이템이에요!</li>
+  </ul>
+
+  <script>
+    let test1 = document.getElementById('firstEl').innerText;
+    console.log('1===', test1);
+
+    let test2 = document.getElementsByClassName('items');
+    console.log('2===', test2);
+
+    let test3 = document.getElementsByTagName('li');
+    console.log('3===', test3);
+
+
+  </script>
+</body>
+</html>
