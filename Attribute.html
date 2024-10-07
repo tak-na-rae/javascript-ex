@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>241007</title>
+</head>
+<body>
+
+  <input id="user" type="text" value="Hello"/>
+  
+  <script>
+    const $input = document.querySelector('#user');
+    const inputValue = $input.getAttribute('value'); // = $input.value
+    console.log(inputValue); // Hello
+    // value 어트리뷰트 값을 변경
+    $input.setAttribute('value', 'foo'); // = $input.value = 'foo'
+    console.log($input.getAttribute('value')); // foo
+    //hasAttribute메서드로 어트리뷰트 존재확인하고 removeAttribute로  삭제할 수 있다.
+    // value 어트리뷰트의 존재 확인
+    if ($input.hasAttribute('value')) {
+      // value 어트리뷰트 삭제
+      $input.removeAttribute('value'); //$input.value = "";
+    }
+    // value 어트리뷰트가 삭제되었다.
+    console.log($input.hasAttribute('value')); // false
+    </script>
+</body>
+</html>

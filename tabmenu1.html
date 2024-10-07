@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>241007</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@100..900&display=swap" rel="stylesheet">
+
+  <style>
+    * { margin:0; font-family:"Noto Sans KR", sans-serif; box-sizing:border-box; }
+    a { color:inherit; text-decoration:none; }
+    ul,li { list-style:square; }
+    .on { background-color:red; }
+  </style>
+</head>
+<body>
+  
+  <ul class="tab_menu">
+		<li>공지사항</li>
+		<li>알림마당</li>
+		<li>보도자료</li>
+		<li>채용정보</li>
+	</ul>
+	<div class="tab_list">
+		<ul>
+			<li>공지사항입니다.</li>
+			<li>공지사항입니다.</li>
+			<li>공지사항입니다.</li>
+			<li>공지사항입니다.</li>
+		</ul>
+		<ul>
+			<li>알림마당입니다.</li>
+			<li>알림마당입니다.</li>
+			<li>알림마당입니다.</li>
+			<li>알림마당입니다.</li>
+		</ul>
+		<ul>
+			<li>보도자료입니다.</li>
+			<li>보도자료입니다.</li>
+			<li>보도자료입니다.</li>
+			<li>보도자료입니다.</li>
+		</ul>
+		<ul>
+			<li>채용정보입니다.</li>
+			<li>채용정보입니다.</li>
+			<li>채용정보입니다.</li>
+			<li>채용정보입니다.</li>
+		</ul>
+	</div>
+
+  <script>
+    const tabMenuLi = document.querySelectorAll('.tab_menu li');
+    const tabListUl = document.querySelectorAll('.tab_list ul');
+    tabMenuLi.forEach( (el,idx) => el.addEventListener('click', ()=>{
+      // console.log(el,idx);
+      el.classList.add('on');
+      tabListUl[idx].classList.add('on');
+    }))
+  </script>
+
+</body>
+</html>

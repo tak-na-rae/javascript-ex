@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>241007</title>
+</head>
+<body>
+  
+  <button class="btn_plus">버튼추가</button>
+  <button class="btn_minus">버튼제거</button>
+
+  <ul class="itemlist">
+    <li><input type="button" value="button1"></li>
+    <li><input type="button" value="button2"></li>
+    <li><input type="button" value="button3"></li>
+  </ul>
+
+  <script>
+    // === button 버튼 클릭시 alert
+    // const itemList = document.querySelector('.itemlist');
+    // let li = document.createElement('li');
+    // let input = document.createElement('input');
+    // input.setAttribute('type','button');
+    // input.setAttribute('value','button3');
+    // li.appendChild(input);
+    // itemList.appendChild(li);
+    // const btns = document.querySelectorAll('input');
+    // btns.forEach(button => button.addEventListener('click', e => {
+    //   alert(`${e.target.value} 클릭`);
+    // }))
+
+
+    // === 버튼추가제거 버튼 클릭시 li 증가감소
+    const itemList = document.querySelector('.itemlist');
+    itemList.addEventListener('click', e=> alert(e.target.value));
+    let btnPlus = document.querySelector('.btn_plus');
+    let btnMinus = document.querySelector('.btn_minus');
+    let i = document.querySelectorAll('.itemlist > li').length;
+    btnPlus.addEventListener('click', ()=>{
+      i++;
+      let li = document.createElement('li');
+      let input = document.createElement('input');
+      input.setAttribute('type','button');
+      input.setAttribute('value','button' + i);
+      li.appendChild(input);
+      itemList.appendChild(li);
+    })
+    btnMinus.addEventListener('click', ()=>{
+      const li = document.querySelector('.itemlist > li:last-child');
+      i--;
+      li.remove();
+    })
+    
+  </script>
+</body>
+</html>

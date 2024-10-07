@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>241007</title>
+</head>
+<body>
+  
+  <button class="btn1">0</button>
+  <button class="btn2">0</button>
+
+  <script>
+    const btn1 = document.querySelector('.btn1');
+    const btn2 = document.querySelector('.btn2');
+
+    // 프로퍼티 방식
+    btn1.onclick = function(e){
+      console.log('function==', this); // html button
+      ++this.textContent; //숫자증가됨
+    }
+    // 메서드방식
+    btn2.addEventListener('click', e=>{ //화살표함수에서는 this가 (e)상위객체 찍힘
+      console.log('화살표==', this); //window
+      console.log(e.currentTarget);  // html button
+      ++e.currentTarget.textContent;
+    })
+    
+    // [ex] 상위객체가 window가 아닐때
+    let obj = {
+      test : '999',
+      a: function() {
+        console.log(this);
+      },
+    };
+    obj.a(); // obj
+  </script>
+</body>
+</html>

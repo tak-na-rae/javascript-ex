@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>241007</title>
+  <style>
+        #pic {
+      width: 300px;
+      height: auto;
+      border-radius: 10px;
+      box-shadow: 1px 1px 2px black;
+    }
+  </style>
+</head>
+<body>
+  
+  <img src="images/241007_pic1.jpg" alt="이미지" id="pic"/>
+
+  <script>
+    const pic = document.querySelector('#pic');
+    let sNum = pic.getAttribute('src').substr(-5,1); // .substr(-5) == .substr(7)
+    
+    const gogo = ()=>{
+      if(sNum >= 3) sNum = 0;
+      sNum++;
+      pic.setAttribute('src',`images/241007_pic${sNum}.jpg`);
+    }
+    let timer = setInterval(gogo, 1000);
+    pic.addEventListener('mouseenter',()=>{
+      clearInterval(timer);
+    })
+    pic.addEventListener('mouseleave', ()=>{
+      timer = setInterval(gogo, 1000);
+    })
+  </script>
+</body>
+</html>

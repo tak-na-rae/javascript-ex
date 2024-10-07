@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>241007</title>
+</head>
+<body>
+
+  <ul id="fruits">
+    <li>Apple</li>
+  </ul>
+  
+  <script>
+    const $fruits = document.getElementById('fruits');
+    const $li2 = document.createElement('li');
+    $li2.appendChild(document.createTextNode('pineapple'));
+    $fruits.insertBefore($li2, $fruits.lastElementChild);
+
+    // const [$apple, $banana] = $fruits.children;
+    // $fruits.appendChild($apple); // Banana - Orange - Apple
+    // $fruits.insertBefore($banana, $fruits.lastElementChild);
+  </script>
+</body>
+</html>
