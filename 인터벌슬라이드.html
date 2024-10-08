@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>241008</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@100..900&display=swap" rel="stylesheet">
+
+  <style>
+    * { padding:0; margin:0; font-family:"Noto Sans KR", sans-serif; box-sizing:border-box; }
+    a { color:inherit; text-decoration:none; }
+    ul,li { list-style:none; }
+
+    .bigbox{
+      width:400px;
+      height:300px;
+      margin-top:100px;
+      margin-left:100px;
+      overflow:hidden;
+      border:1px solid red;
+    }
+    .box{
+      width:1200px;
+      height:300px;
+      position:relative;
+      border:1px solid blue;
+    }
+    .box img{
+      position:absolute;
+      transition:.3s ease;
+    }
+    .box .leftPlus400{
+      left:400px;
+      transition:none;
+    }
+
+    .box .left0{
+      left:0px;
+    }
+
+    .box .leftMinus400{
+      left:-400px;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="bigbox">
+    <div class="box">
+      <img class="left0" src="images/241008_img1.jpg" alt="이미지1">
+      <img class="leftPlus400" src="images/241008_img2.jpg" alt="이미지2">
+      <img class="leftPlus400" src="images/241008_img3.jpg" alt="이미지3">
+      <img class="leftPlus400" src="images/241008_img4.jpg" alt="이미지4">
+    </div>
+  </div>
+
+  <script>
+    let i = 0; //이미지순번
+    const boxImgs = document.querySelectorAll('.box > img');
+    function slide(){
+
+      (i == boxImgs.length) && (i = 0); //단축표현(pdf-240927-11) if(i == boxImgs.length) i = 0;
+      boxImgs[i].className = 'leftMinus400'; //현재 보이는 이미지 왼쪽으로 이동
+      boxImgs[(i+1) % boxImgs.length].className = 'left0';
+      boxImgs[(i+2) % boxImgs.length].className = 'leftPlus400';
+      i++;
+    }
+    setInterval(slide, 1500);
+  </script>
+</body>
+</html>

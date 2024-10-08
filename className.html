@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>241008</title>
+  <style>
+    .box {
+      width: 100px;
+      height: 100px;
+      background-color: antiquewhite;
+    }
+    .red {
+      color: red;
+    }
+    .blue {
+      color: blue;
+    }
+  </style>
+</head>
+<body>
+  
+  <div class="box red">Hello world</div>
+
+  <script>
+    const box = document.querySelector('.box');
+
+    // === 클래스 replace 변경
+    box.className = box.className.replace('red', 'blue');
+    box.classList.replace('blue','red');
+    // === 클래스 추가
+    box.classList.add('foo');
+    // === 클래스 제거
+    box.classList.remove('foo');
+    // 인수로 전달한 index에 해당하는 클래스 반환
+    box.classList.item(0);
+    // 클래스 존재 확인
+    box.classList.contains('red');
+    // 클래스 없으면 추가 없으면 제거
+    box.classList.toggle('active');
+    
+  </script>
+</body>
+</html>

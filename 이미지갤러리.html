@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>241008</title>
+  <style>
+    *{margin:0;padding:0;}
+    ul,li{list-style:none;}
+    body{background-color:#333;}
+    img{border:0px;}
+    #wrap{width:640px;margin:100px auto 0 auto;}
+    #nav li{float:left;}
+    #nav li a{ display:block;border:2px solid #bbb; margin:0 6px 10px 0; border-radius:5px; }
+    #nav li a img{width:70px;}
+    #window{clear:both;}
+    #nav li a.active{border:2px solid #fff;}
+  </style>
+</head>
+<body>
+  
+  <div id="wrap">
+		<ul id="nav">
+			<li><a href="images/241008_lop0.jpg" class="active"><img src="images/241008_thumb0.jpg"/></a></li>
+			<li><a href="images/241008_lop1.jpg"><img src="images/241008_thumb1.jpg"/></a></li>
+			<li><a href="images/241008_lop2.jpg"><img src="images/241008_thumb2.jpg"/></a></li>
+			<li><a href="images/241008_lop3.jpg"><img src="images/241008_thumb3.jpg"/></a></li>
+			<li><a href="images/241008_lop4.jpg"><img src="images/241008_thumb4.jpg"/></a></li>
+			<li><a href="images/241008_lop5.jpg"><img src="images/241008_thumb5.jpg"/></a></li>
+			<li><a href="images/241008_lop6.jpg"><img src="images/241008_thumb6.jpg"/></a></li>
+			<li><a href="images/241008_lop7.jpg"><img src="images/241008_thumb7.jpg"/></a></li>
+		</ul>
+		<div id="window"><img src="images/241008_lop0.jpg"/></div>
+	</div>
+
+  <script>
+    const navLi = document.querySelectorAll('#nav li a');
+    navLi.forEach(item => item.addEventListener('click', (e)=>{
+      e.preventDefault();
+      const img_url = item.getAttribute('href');
+      document.querySelector('#window img').setAttribute('src',img_url);
+      for(const item of navLi){
+        item.classList.remove('active');
+      }
+      item.classList.add('active');
+    }))
+  </script>
+</body>
+</html>
