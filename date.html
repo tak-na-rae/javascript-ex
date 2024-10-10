@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>241010</title>
+</head>
+<body>
+  
+  <script>
+    let today = new Date(); //Thu Oct 10 2024 10:47:57 GMT+0900 (한국 표준시)
+    let week = [
+      '(일)Sunday',
+      '(월)Monday',
+      '(화)Tuesday',
+      '(수)Wednesday',
+      '(목)Thursday',
+      '(금)Friday',
+      '(토)Saturday',
+    ]
+    document.write('new Date() : ' + today);
+    document.write('연도 : ' + today.getFullYear() + '<br/>');
+    document.write('월 : ' + (today.getMonth()+1) + '<br/>');
+    document.write('일 : ' + today.getDate() + '<br/>');
+    document.write('요일 : ' + (today.getDay()) + '<br/>'); //0(일요일)부터 숫자로 반환
+    document.write('요일 : ' + week[today.getDay()] + '<br/>');
+    document.write('시 : ' + today.getHours() + '<br/>');
+    document.write('분 : ' + today.getMinutes() + '<br/>');
+    document.write('초 : ' + today.getSeconds() + '<br/>');
+
+    //6개의 파라미터(연,월,일,시,분,초) 입력해서 특정날짜 정보 저장
+    // let birthday = new Date(2000,1,1,10,10,10); //2000-02-01
+    // document.write(birthday);
+    let date99 = new Date(2021,10,10); //2021-11-10
+    document.write('기준날짜지정 : ' + date99 + '<br/>');
+    date99.setDate(date99.getDay() + 50); //50일 이후의 날짜는
+    document.write('디데이날짜지정 : ' + date99 + '<br/>');
+    
+    //디데이 d-day
+    let date = new Date(2024,9,10);
+    let year = date.getFullYear();
+    let christmas = new Date(year,11,25);//2024-12-25
+    let diffTime = christmas - date;
+    let diffDay = diffTime / (1000*60*60*24); //남은날짜계산
+    document.write('2024-12-25까지 : ' + Math.ceil(diffDay));
+  </script>
+</body>
+</html>

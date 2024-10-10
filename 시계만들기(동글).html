@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>241010</title>
+  <style>
+    * { padding:0; margin:0; }
+    #clock { width:300px; height:300px; margin:100px auto 0; position:relative; }
+    #clock img { position:absolute; top:0; left:0; display:block; }
+    .sec { width:3px; height:140px; background:#000; position:absolute; top:3%; right:50%; transform-origin:50% 100%; }
+  </style>
+</head>
+<body>
+  
+  <div id="clock">
+    <img alt="clock" src="images/241010_clock.png" />
+    <img alt="hour" src="images/241010_h.png" class="hour" />
+    <img alt="min" src="images/241010_m.png" class="min" />
+    <div class="sec"></div>
+  </div>
+  <div class="digital"></div>
+
+  <script>
+    const clock = ()=>{
+      const today = new Date();
+      let hour = today.getHours();
+      const minute = today.getMilliseconds();
+      const second = today.getSeconds();
+      const milliSecond = today.getMilliseconds();
+
+      if(hour > 11) hour -= 12; //12를 빼서 0~11범위로 만듦
+      
+      const degreeOfSecond = (second * 6) + (milliSecond * 6 / 1000); //초침각도계산,초당6도(360도/60초), 밀리초를 추가해 정밀한 각도 계산
+      const degreeOfMitute = (minute * 6) + (degreeOfSecond / 60); //분침각도계산,분당6도(360도/60분), 초침 위치에 따라 조정
+      const degreeOfHour = (hour * 30) + (degreeOfMitute / 12); //시침각도계단,시당30도(360도/12시간),분침의 위치에 따라 조정
+
+      const needles = document.querySelector('#clock').children; //console.log(needles);
+      needles[1].style.transform = `rotate(${degreeOfHour}deg)`;
+      needles[2].style.transform = `rotate(${degreeOfMitute}deg)`;
+      needles[3].style.transform = `rotate(${degreeOfSecond}deg)`;
+
+      let redNeedle = 0;
+      let greenNeddle = 0;
+      let blueNeedle = 0;
+      if(degreeOfSecond < 90){
+        redNeedle = Math.round(255 * degreeOfSecond / 90); //초침각도가 0~90도 사이일때 빨간색값 계산, 각도가 커질수록 빨간색 진해짐(Math.round() = 반올림)
+      } else if(90 <= degreeOfSecond && degreeOfSecond < 180){
+        redNeedle = Math.round(255 - (255 * (degreeOfSecond - 90) / 90));
+        greenNeddle = Math.round(255 * (degreeOfSecond - 90) / 90);
+      } else if(180 <= degreeOfSecond && degreeOfSecond < 270){ //각도 180~270
+        greenNeddle = Math.round(255 - (degreeOfSecond - 180) / 90);
+        blueNeedle = Math.round(255 * (degreeOfSecond - 180) / 90);
+      } else { //각도 270이상
+        blueNeedle = Math.round(255 - (255 * degreeOfSecond - 270) / 90);
+      }
+      needles[3].style.backgroundColor = `rgb(${redNeedle},${greenNeddle},${blueNeedle})`;
+    }
+    setInterval(clock, 1000/60);
+  </script>
+</body>
+</html>

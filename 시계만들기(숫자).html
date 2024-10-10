@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>241010</title>
+  <style>
+    .frame { padding:8px; background-color:#000; border-radius:8px; display:inline-block; }
+    .clock { text-align:center; font-family:'Roboto', sans-serif; color:#fff; box-sizing:border-box; }
+    .large_text { font-size:75px; }
+    .small_text { font-size:20px; }
+    .date_box { font-size:15px; }
+    .colon { font-size:55px; vertical-align:text-bottom; animation:blink 1s step-start infinite; }
+    @keyframes blink { 50%{opacity:0;} }
+  </style>
+</head>
+<body>
+  
+  <div class="frame">
+    <div class="clock">
+      <div class="time_box">
+        <span id="hours" class="large_text"></span>
+        <span class="colon">:</span>
+        <span id="minute" class="large_text"></span>
+        <span id="seconds" class="small_text"></span>
+      </div>
+      <div class="date_box">
+        <span id="year"></span>
+        <span>.</span>
+        <span id="month"></span>
+        <span>.</span>
+        <span id="date"></span>
+        <span id="day"></span>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    const watchClock = ()=>{
+
+      function leftPad(number){
+        if(number < 10){
+          return `0${number}`;
+        }
+        return number;
+      }
+      function setText(selector,text){
+        const targetEl = document.querySelector(selector);
+        if(!targetEl) return;
+        targetEl.innterText = text;
+      }
+      function getDateText(idx){
+        const days = [ '(일)', '(월)', '(화)', '(수)', '(목)', '(금)', '(토)'];
+        return days[idx];
+      }
+
+      const present = new Date();
+      const hour = leftPad(present.getHours());
+      const minute = leftPad(present.getMinutes());
+      const seconds = leftpad(present.getSeconds());
+      setText('#hours', hour);
+      setText('#minute', minute);
+      setText('#seconds', seconds);
+
+      const year = present.getFullYear(); //현재연도
+      const month = leftPad(present.getMonth() + 1);
+      const date = leftPad(present.getDate());
+      const day = getDayText(present.getDay());
+      setText('#year', year);
+      setText('#month', month);
+      setText('#date', date);
+      setText('#day', day);
+      
+    }
+    watchClock();
+    setInterval(watchClock,1000);
+  </script>
+</body>
+</html>
