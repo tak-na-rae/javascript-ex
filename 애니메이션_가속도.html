@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>241011</title>
+  <style>
+    .box1 { width:100px; height:100px; background-color:red; position:relative; }
+  </style>
+</head>
+<body>
+  
+  <div class="box box1">상자1</div>
+
+  <script>
+    const box1 = document.querySelector('.box1');
+    let i = -90; //애니메이션 진행상태, -90으로 초기화
+    const box1Ani = ()=>{
+      const ease = ((Math.sin(i * Math.PI / 180)) + 1 / 2);
+      box1.style.left = `${0 + (500 * ease)}px`;
+      i += 180/60;
+      if(i >= 90) {
+        i = 90;
+        return clearInterval(id);
+      } 
+    }
+    const id = setInterval(box1Ani, 1000/60);
+  </script>
+</body>
+</html>
