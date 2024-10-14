@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>241014</title>
+  <style>
+    input { width:500px; }
+  </style> 
+</head>
+<body>
+  
+  <div id="slideList"></div>
+  <input type="range" id="slider" max="100" min="0" value="0"/>
+
+  <script>
+    for(let i = 0; i < 120; i++){
+      const p = document.createElement('p');
+      const img = document.createElement('img');
+      img.setAttribute('src',`images/vr/Picanto_Green_${i}.jpg`);
+      img.setAttribute('alt',`image${i}`);
+      p.appendChild(img);
+      document.querySelector('#slideList').appendChild(p);
+    }
+    
+    const slider = document.querySelector('#slider');
+    const imageList = document.querySelectorAll('#slideList p');
+    imageList.forEach((el,idx)=>{
+      el.style.display = 'none';
+    })
+    imageList[0].style.display = 'block';
+
+    let start = 0;
+    let end = imageList.length - 1; //119
+    slider.addEventListener('input', ()=>{
+      let sliderValue = slider.value;
+      let imgIdx = Math.round((sliderValue / 100) * end);
+      // console.log(imgIdx);
+      imageList.forEach(el=>{
+        el.style.display = 'none';
+      })
+      imageList[imgIdx].style.display = 'block';
+    })
+  </script>
+
+</body>
+</html>

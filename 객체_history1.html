@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>241014</title>
+</head>
+<body>
+  
+  <fieldset>
+    <legend>먼저 실행하세요</legend>
+    <a href="객체_history2.html">앞으로 가기</a>
+  </fieldset>
+
+  <fieldset>
+    <legend>다음 실행하세요</legend>
+    <input type="button" value="앞으로 가기">
+  </fieldset>
+
+  <script>
+    const btn = document.querySelector('input');
+    btn.addEventListener('click', ()=>{
+      history.forward();
+    })
+  </script>
+</body>
+</html>

@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>241014</title>
+  <style>
+    #myList > li { padding:5px; }
+    #myList > li:hover { background-color:lightcoral; color:#ddd; cursor:pointer; }
+    button { padding:.5em 1em; text-align:center; background-color:lightblue; font-size:1em; color:#333; border:none; box-shadow:2px 2px 2px #888; }
+    button:hover { color:#fff; box-shadow:-2px -2px 2px #888; cursor:pointer; }
+  </style>
+</head>
+<body>
+  
+  <ol id="myList">
+    <li>window.open() 기본형</li>
+    <li>화면 이동</li>
+    <li>팝업창 열기</li>
+    <li>팝업창 제어</li>
+    <li>
+        <a href="http://www.naver.com" target="_blank">네이버</a>
+    </li>
+  </ol>
+
+<button type="button">윈도우 열기</button>
+<button type="button">윈도우 닫기</button>
+
+  <script>
+    const list = document.querySelectorAll('#myList li');
+    
+    //window.open(url, name, specs, replace);
+    list[0].onclick = ()=>{
+      window.open();
+    }
+
+    list[1].onclick = ()=>{
+      window.open('https://google.co.kr', '_blank');
+    }
+
+    list[2].onclick = ()=>{
+      window.open('https://daum.net','','width=400, height=400');
+    }
+
+    list[3].onclick = ()=>{
+      let wp = window.open('','','width=500,height=500');
+      wp.document.write('<h1>blank</h1>');
+      wp.opener.document.write('<h1>self</h2>');
+    }
+
+    //열기
+    let win;
+    const btn = document.querySelectorAll('button');
+    const openWindow = ()=>{
+      win = window.open('','','width=500,height=500');
+      win.document.write('<h2>New Window</h2>')
+    }
+    btn[0].addEventListener('click',openWindow);
+
+
+    //닫기
+    btn[1].addEventListener('click',()=>{
+      if(win != undefined) win.close();
+    })
+  </script>
+</body>
+</html>

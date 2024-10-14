@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>241014</title>
+</head>
+<body>
+  
+  <script>
+    //숫자 간결하게 나타내기
+    const views = 9744654;
+    const formatter = new Intl.NumberFormat(navigator.language,{
+      notation : 'compact',
+      compactDisplay : 'long',
+      style : 'currency',
+      currency : 'KRW'
+    }); //언어('ko-KR'),옵션
+    document.write(formatter.format(views) + '<br/>');
+  </script>
+</body>
+</html>

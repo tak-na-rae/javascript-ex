@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>241014</title>
+  <style>
+    fieldset { margin:10px; }
+    legend { padding:5px; background-color:lightblue; }
+    input[type="text"] { width:100%; padding:5px; box-sizing:border-box; }
+  </style>
+</head>
+<body>
+  
+  <fieldset>
+    <legend>alert()</legend>
+    <input type="text" name="alert" value="클릭하세요">
+	</fieldset>
+	
+	<fieldset>
+    <legend>confirm()</legend>
+    <button type="button" name="confirm">confirm()</button>
+    <hr/>
+    <input type="text" name="confirm" readonly="readonly">
+	</fieldset>
+	
+	<fieldset>
+    <legend>prompt()</legend>
+    <input type="button" name="prompt" value="prompt()">
+    <hr/>
+    <input type="text" name="prompt" disabled="disabled">
+	</fieldset>
+
+  <script>
+    document.querySelector('input[name="alert"]').addEventListener('click',()=>{alert('alert!!!')});
+    
+    const two = ()=>{
+      if(confirm("자바스크립트 재밌나") == true) {
+        document.querySelector('input[name="confirm"]').value = '확인완';
+      } else {
+        document.querySelector('input[name="confirm"]').value = '힘내라';
+      }
+    }
+    document.querySelector('button[name="confirm"]').addEventListener('click', two);
+  
+    const three = ()=>{
+      let name = prompt("이름입력" , "");
+      if(name != null) document.querySelector('input[type="text"][name="prompt"]').value = name + '안녕';
+    }
+    document.querySelector('input[type="button"][name="prompt"]').addEventListener('click', three);
+
+  </script>
+</body>
+</html>

@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>241014</title>
+</head>
+<body>
+  
+    <input type="text" value="Hello World" id="myInput">
+    <button onclick="myFunction()">Copy text</button>
+
+    <script>
+      const myFunction = ()=>{
+        const copyTxt = document.getElementById('myInput');
+        navigator.clipboard.writeText(copyTxt.value); //input에 입력값 임시저장
+      }
+    </script>
+</body>
+</html>
