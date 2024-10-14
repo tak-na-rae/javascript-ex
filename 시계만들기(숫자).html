@@ -47,7 +47,7 @@
       function setText(selector,text){
         const targetEl = document.querySelector(selector);
         if(!targetEl) return;
-        targetEl.innterText = text;
+        targetEl.innerText = text;
       }
       function getDateText(idx){
         const days = [ '(일)', '(월)', '(화)', '(수)', '(목)', '(금)', '(토)'];
@@ -57,7 +57,7 @@
       const present = new Date();
       const hour = leftPad(present.getHours());
       const minute = leftPad(present.getMinutes());
-      const seconds = leftpad(present.getSeconds());
+      const seconds = leftPad(present.getSeconds());
       setText('#hours', hour);
       setText('#minute', minute);
       setText('#seconds', seconds);
@@ -65,7 +65,7 @@
       const year = present.getFullYear(); //현재연도
       const month = leftPad(present.getMonth() + 1);
       const date = leftPad(present.getDate());
-      const day = getDayText(present.getDay());
+      const day = getDateText(present.getDay());
       setText('#year', year);
       setText('#month', month);
       setText('#date', date);

@@ -25,7 +25,7 @@
     const clock = ()=>{
       const today = new Date();
       let hour = today.getHours();
-      const minute = today.getMilliseconds();
+      const minute = today.getMinutes();
       const second = today.getSeconds();
       const milliSecond = today.getMilliseconds();
 
@@ -49,7 +49,7 @@
         redNeedle = Math.round(255 - (255 * (degreeOfSecond - 90) / 90));
         greenNeddle = Math.round(255 * (degreeOfSecond - 90) / 90);
       } else if(180 <= degreeOfSecond && degreeOfSecond < 270){ //각도 180~270
-        greenNeddle = Math.round(255 - (degreeOfSecond - 180) / 90);
+        greenNeddle = Math.round(255 - (255 * (degreeOfSecond - 180) / 90));
         blueNeedle = Math.round(255 * (degreeOfSecond - 180) / 90);
       } else { //각도 270이상
         blueNeedle = Math.round(255 - (255 * degreeOfSecond - 270) / 90);
