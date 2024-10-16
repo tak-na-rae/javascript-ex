@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>241016</title>
+  <style>
+    * { padding:0; margin:0; box-sizing:border-box; }
+    #works { width:1200px; margin:0 auto; position:relative; display:flex; }
+    #works .box { width:300px; height:280px; background-size:cover; display:flex; align-items:center; justify-content:center; }
+    #works .box h1 { color:#fff; position:relative; z-index:2; opacity:0; }
+    #works .box:hover h1 { opacity:1; animation:scale .35s .15s; }
+    @keyframes scale { 50%{scale:1.5;} }
+    #works .box:nth-of-type(1) { background-image:url(images/241016_image01.jpg); }
+    #works .box:nth-of-type(2) { background-image:url(images/241016_image02.jpg); }
+    #works .box:nth-of-type(3) { background-image:url(images/241016_image03.jpg); }
+    #works .box:nth-of-type(4) { background-image:url(images/241016_image04.jpg); }
+    #works .overlay { width:300px; height:280px; background-color:rgba(0,0,0,.3); position:absolute; top:0; left:0; z-index:1; opacity:0; transition:.35s ease; pointer-events:none; }
+  </style>
+</head>
+<body>
+ 
+  <section id="works">
+    <div class="overlay"></div>
+    <article class="box">
+      <h1>TEXT</h1>
+    </article>
+    <article class="box">
+      <h1>TEXT</h1>
+    </article>
+    <article class="box">
+      <h1>TEXT</h1>
+    </article>
+    <article class="box">
+      <h1>TEXT</h1>
+    </article>
+  </section>
+
+  <script>
+    const box = document.querySelectorAll('.box');
+    const overlay = document.querySelector('.overlay');
+    const boxW = box[0].offsetWidth;
+
+    box.forEach((el,idx) => el.addEventListener('mouseover', ()=>{
+      overlay.style.opacity = 1;
+      overlay.style.left = boxW * idx + 'px';
+    }))
+
+    box.forEach((el,idx) => el.addEventListener('mouseout', ()=>{
+      overlay.style.opacity = 0;
+    }))
+  </script>
+</body>
+</html>

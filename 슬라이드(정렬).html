@@ -23,7 +23,7 @@
       position:relative;
     }
     #gallery > .box > li{
-      width:360px;
+      width:50%;
       padding:0 80px;
       text-align: center;
       color:#666;
@@ -62,6 +62,11 @@
     .right{
       right:0;
     }
+
+    /*  */
+    .bullet { padding:50px 0; text-align:center; }
+    .bullet li { width:12px; height:12px; margin:0 4px; background-color:#ccc; display:inline-block; }
+    .bullet li.active { background-color:red; }
   </style>
   <script src="https://kit.fontawesome.com/632d3e2496.js" crossorigin="anonymous"></script>
 </head>
@@ -131,7 +136,6 @@
     const slide = document.querySelector('.box');
     let imgWd = slide.children[0].getBoundingClientRect().width; //요소의 위치는 고정값이 아니라 문서가 브라우저에서 스크롤 될 때 마다 값이 변함
     let eventHandler = true;
-
     left.addEventListener('click', ()=>{
       if(eventHandler == true){
         eventHandler = false;
@@ -147,8 +151,8 @@
           if(current == 0) clearTimeout(timer); eventHandler = true;
         },1000/60) //1초에 60프레임 간격호출
       }
+      leftActive();
     })
-
     right.addEventListener('click', ()=>{
       if(eventHandler == true){
         eventHandler = false;
@@ -167,7 +171,64 @@
           }
         },1000/60)
       } 
+      rightActive();
     })
+  
+
+    const madeUl = document.createElement('ul');
+    let slides = document.querySelectorAll('.box > li');
+    for (let i = 0; i < slides.length; i++) { //슬라이드 따라 i조절
+      const madeLi = document.createElement('li');
+      madeLi.className = 'item' + i;
+      madeUl.appendChild(madeLi);
+    }
+    document.querySelector('#gallery').appendChild(madeUl);
+    madeUl.classList.add('bullet');
+    madeUl.firstElementChild.classList.add('active');
+
+
+    const rightActive = ()=>{
+
+      // let dots = document.querySelectorAll('.bullet > li');
+      //   for(let i = 0; i < dots.length; i++) {
+      //     dots.forEach((el, idx)=>{
+      //       if(el.classList.contains('active')){
+      //         el.classList.remove('active');
+      //         dots[i + 1]
+      //       }
+      //     })
+      //   }
+
+      let dots = document.querySelectorAll('.bullet > li');
+      for (let i = 0; i < dots.length; i++) {
+        if (dots[i].classList.contains('active')) {
+          dots[i].classList.remove('active');
+
+          let nextDot = dots[i + 1] || dots[0]; // 다음 bullet 요소를 찾는다. 마지막 bullet이라면 첫 번째로
+          nextDot.classList.add('active');
+
+          break; // active 클래스가 업데이트된 후 루프를 종료한다.
+        }
+      }
+
+    }
+
+    const leftActive = ()=>{
+      let dots = document.querySelectorAll('.bullet > li');
+      for (let i = 0; i < dots.length; i++) {
+        if (dots[i].classList.contains('active')) {
+          dots[i].classList.remove('active');
+        
+          let prevDot = dots[i - 1] || dots[dots.length - 1]; // 이전 bullet 요소를 찾는다. 첫 번째 bullet이면 마지막 요소로
+          prevDot.classList.add('active');
+
+          break; // active 클래스가 업데이트된 후 루프를 종료한다.
+        }
+      }
+    }
+
+
+    
   </script>
 </body>
 </html>

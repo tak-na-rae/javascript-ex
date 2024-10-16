@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>클래스연습</title>
+  <style>
+    * { padding:0; margin:0; box-sizing:border-box; }
+    a { color:inherit; text-decoration:none; }
+    ul { text-align:center; }
+    ul li { display:inline-block; }
+    ul li.active { color:red; }
+    ul li.next { color:blue; }
+  </style>
+</head>
+<body>
+
+  <ul class="menu">
+    <li class="active"><a href="#">메뉴1</a></li>
+    <li><a href="#">메뉴2</a></li>
+    <li><a href="#">메뉴3</a></li>
+    <li><a href="#">메뉴4</a></li>
+  </ul>
+  
+  <ul class="action"> 
+    <li><a href="#">메뉴1</a></li> 
+    <li><a href="#">메뉴2</a></li>
+    <li><a href="#">메뉴3</a></li>
+    <li><a href="#">메뉴4</a></li>
+  </ul>
+
+  <script>
+    
+    // ===== has contains 가지고 있는 확인
+    if (document.querySelector('.menu .active')) document.querySelector('.menu').classList.add('has');
+
+    const menu = document.querySelector('.menu');
+    if (menu.classList.contains('active')) menu.classList.add('has');
+    if (menu.querySelector('.active')) menu.classList.add('has');
+
+    // ===== target에만 active
+    document.querySelectorAll('.menu li').forEach(el => 
+        el.addEventListener('click', () => {
+        document.querySelector('.menu li.active')?.classList.remove('active');
+        el.classList.add('active');
+      })
+    );
+
+    document.querySelectorAll('.action li').forEach(li => 
+      li.addEventListener('click', () => li.classList.toggle('active'))
+    );
+    // document.querySelectorAll('.action li').forEach(li => li.onclick = () => li.classList.toggle('active'));
+
+    // ===== 다음 요소 찾을때
+    const list = document.querySelectorAll('.menu li');
+    for (let i = 0; i < list.length; i++) {
+      if (list[i].classList.contains('active') && list[i + 1]) {
+        nextLi = list[i + 1];
+        break;
+      }
+    }
+    
+    for (const li of document.querySelectorAll('.menu li')) {
+      if (li.classList.contains('active')) {
+        li.nextElementSibling?.classList.add('next');
+        // console.log(li.nextElementSibling)
+        break;
+      }
+    }
+  
+  </script>
+</body>
+</html>
