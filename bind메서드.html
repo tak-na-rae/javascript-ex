@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>231017</title>
+</head>
+<body>
+  
+  <script>
+    function getBinding(){
+      return this;
+    }
+    const thisArg = { a : 1 };
+    console.log(getBinding.bind(thisArg)());
+    console.log(thisArg);
+
+    // const person = {
+    //   name : 'kim',
+    //   foo(callback){ //setTimeout 사용시 this를 못 불러옴
+    //     // setTimeout(callback, 100);
+    //   }
+    // }
+    // person.foo(function(){
+    //   console.log(this);
+    //   `${this.name}`;
+    // })
+
+    const obj = 3;
+    function showA() {
+      return this;
+    }
+    const boundShowA = showA.bind(obj);
+    console.log(boundShowA());
+  </script>
+</body>
+</html>

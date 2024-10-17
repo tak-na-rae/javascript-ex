@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>241017</title>
+  <style>
+    * { box-sizing:border-box; }
+    .selectBox { width:150px; height:35px; background-color:#222; color:#fff; position:relative; border-radius:4px; cursor:pointer; }
+    .selectBox::after { content:''; width:0; height:0; position:absolute; top:14px; right:10px; border:6px solid transparent; border-top-color:#fff;  }
+    .selectBox.active::after { top:7px; border-color:transparent; border-bottom-color:#fff }
+    .selectBox .label { width:inherit; height:inherit; padding-left:15px; text-align:left; background-color:transparent; color:#fff; border:0; cursor:pointer; }
+    .selectBox .optionList { width:100%; height:0; max-height:175px; padding:0; background-color:#222; position:absolute; top:28px; left:0; list-style:none; border-radius:4px; overflow-y:auto; transition:.5s ease; }
+    .selectBox .optionItem { padding:12px 15px; line-height:1; font-size:13px; border-bottom:1px dashed #555; transition:.15s ease; }
+    .selectBox .optionItem:last-child { border:0; }
+    .selectBox .optionItem:hover { background-color:#333; }
+    
+    .selectBox .optionList::-webkit-scrollbar {  }
+  </style>
+</head>
+<body>
+
+  <div class="selectBox">
+    <button class="label">Select Car</button>
+    <ul class="optionList">
+      <li class="optionItem">Audi</li>
+      <li class="optionItem">BMW</li>
+      <li class="optionItem">Ford</li>
+      <li class="optionItem">Jaguar</li>
+      <li class="optionItem">Jaguar</li>
+      <li class="optionItem">Jaguar</li>
+      <li class="optionItem">Jaguar</li>
+      <li class="optionItem">Jaguar</li>
+      <li class="optionItem">Jaguar</li>
+      <li class="optionItem">Jaguar</li>
+      <li class="optionItem">Jaguar</li>
+    </ul>
+  </div>
+  
+  <script>
+
+    const bx = document.querySelector('.selectBox .optionList');
+    document.querySelector('.selectBox .label').addEventListener('click', (e)=>{
+      e.target.parentNode.classList.toggle('active');
+      if(!document.querySelector('.selectBox').classList.contains('active')){
+        bx.style.height = 0 + 'px';
+      } else {
+        bx.style.height = bx.scrollHeight + 'px';
+      }
+    })
+
+    // =====
+    // const label = document.querySelector('.label');
+    // const options = document.querySelectorAll('.optionItem');
+    // const handleSelect = (item) =>{
+    //   label.parentNode.classList.remove('active');
+    //   label.innerHTML = item.textContent;
+    // }
+    // options.forEach(option => option.addEventListener('click', ()=> handleSelect(option)));
+    // label.addEventListener('click', ()=>{
+    //   label.parentNode.classList.toggle('active');
+    // })
+  </script>
+</body>
+</html>

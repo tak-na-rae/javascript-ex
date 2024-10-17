@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>241017</title>
+  <style>
+    * { padding:0; margin:0; box-sizing:border-box; }
+    a { color:inherit; text-decoration:none; }
+    ul { text-align:center; }
+    ul li { display:inline-block; }
+    ul li.active { color:red; }
+    ul li.next { color:blue; }
+  </style>
+</head>
+<body>
+
+  <ul class="menu">
+    <li class="active"><a href="#">메뉴1</a></li>
+    <li><a href="#">메뉴2</a></li>
+    <li><a href="#">메뉴3</a></li>
+    <li><a href="#">메뉴4</a></li>
+  </ul>
+  
+  <ul class="action"> 
+    <li><a href="#">메뉴1</a></li> 
+    <li><a href="#">메뉴2</a></li>
+    <li><a href="#">메뉴3</a></li>
+    <li><a href="#">메뉴4</a></li>
+  </ul>
+
+  <script>
+    document.querySelectorAll('.menu li').forEach((el, idx) => el.addEventListener('click', ()=>{
+      document.querySelector('.menu li.active')?.classList.remove('active');
+      el.classList.add('active');
+
+      if(el.classList.contains('active')) el.parentNode.classList.add('has');
+
+    }))
+
+  </script>
+</body>
+</html>
