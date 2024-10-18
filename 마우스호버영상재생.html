@@ -1,0 +1,246 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>241018</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@100..900&display=swap" rel="stylesheet">
+  
+    <style>
+      * { margin:0; font-family:"Noto Sans KR", sans-serif; box-sizing:border-box; }
+      ul,ol,li { list-style:none; }
+      a { color:inherit; text-decoration:none; }
+
+      main { width:100%; height:100vh; background-color:#222; color:#fff; display:flex; }
+      header { width:20%; height:100%; padding:10vh 5vw; position:relative; z-index:3; display:flex; flex-wrap:wrap; align-content:space-between; justify-content:center; }
+      header h1 i { margin-bottom:15px; font-size:5vw; }
+      header h1 span { font:normal .8vw/1 Arial; }
+      header address { font:normal 11px/1.2 Arial; color:#888; }
+      nav { position:absolute; top:10vh; right:5vw; z-index:3; }
+      nav ul { display:flex; }
+      nav a { margin-right:30px; font-size:18px; color:#bbb; }
+      section { width:80%; height:100%; padding-top:15vh; position:relative; z-index:1; display:flex; }
+      section article { padding:70px 40px 100px; position:relative; z-index:1; opacity:.6; transition:opacity .5s, flex .5s; cursor:pointer; flex:1; }
+      section article:hover { opacity:1; z-index:2; flex:1.5; }
+      section article:hover::before { left:0; opacity:1; }
+      section article figure { width:100%; height:15vh; background-color:#333; overflow:hidden; box-shadow:5px 5px 30px rgba(0,0,0,.3); }
+      section article figure video { width:100%; height:100%; transform:scale(1.1); transform-origin:left center; transition:.5s; filter:saturate(10%); object-fit:cover; }
+      section article::before { content:''; width:80%; height:95%; background-color:#444; position:absolute; top:0; left:-200px; opacity:0; transition:.5s; display:block; }
+      section article .inner { width:100%; height:100%; position:relative; display:flex; flex-wrap:wrap; align-content:space-between; }
+      section article .inner .text { width:75%; }
+      section article .inner .txt { width:100%; transition:.35s; }
+      section article .inner .txt h2 { padding-bottom:70px; margin-bottom:40px; transition:.5s; }
+      section article .inner .txt h2::after { content:''; width:40px; height:2px; background-color:#666; display:block; }
+      section article .inner .txt p { font-size:14px/1.4px Arial; color:#999; }
+      main section article .inner figure{
+  width:100%;
+  height:15vh;
+  background:#777;
+  overflow:hidden;
+  box-shadow: 5px 5px 30px rgba(0,0,0,0.3);
+  filter:saturate(10%);/*영상의 채도를 낮춤*/
+  transform-origin: left center;/*왼쪽 방향 기준으로 변형이 일어나도록 중심축 변경*/
+  transition:1s;
+}
+main section article .inner figure video{
+  width:100%;
+  height:100%;
+  object-fit:cover;/*영상이 figure영역안에 꽉 차도록 설정*/
+  transform:scale(1.1);/*영상 가장자리의 여백을 숨기기위해 약간 확대*/
+}
+
+/*article요소에 마우스오버시 변경 구문*/
+main section article:hover{
+  flex:1.5;/*마우스오버된 요소만 1.5넓이를 증가*/
+  opacity:1;
+  z-index: 2;
+}
+main section article:hover::before{
+  left:0;
+  opacity: 1;
+}
+main section article:hover .inner .text{
+  width:75%;
+}
+
+main section article:hover .inner .txt h2{
+  font-size:5vw;
+  padding-top:0;
+}
+
+main section article:hover .inner .txt h2::after{
+  width:120px;
+  background:orange;
+}
+
+main section article:hover .inner figure{
+  height:25vh;
+  filter:saturate(120%);
+  transform:translateY(3vh);
+}
+
+/*article영역을 클릭하면 나타나는 영역*/
+main aside{
+  width:100%;
+  height:100vh;
+  position:absolute;
+  background:#222;
+  top:0;
+  left:-100%;
+  opacity:0;
+  z-index: 2;
+  padding:20vh 7vw 14vh 20vw;
+  display:flex;
+  justify-content: space-between;
+  transition:1s;
+}
+main aside.on{/*on클래스가 추가되면 나타남*/
+  opacity:1;
+  left:0;
+}
+main aside .txt{
+  width:25%;
+  height:100%;
+}
+main aside .txt h1{
+  font:normal 6vw/1 "Alegreya Sans SC";
+  color:#ddd;
+  margin-bottom:20px;
+}
+main aside .txt p {
+	font: 1.1vw/1.3 Arial;
+	color: #666;
+	margin-bottom: 60px;
+}
+main aside .txt span {
+	cursor: pointer;
+	color: orange;
+}
+main aside figure {
+	width: 72%;
+	height: 100%;
+}
+main aside figure video {
+	width: 100%;
+	height: 100%;
+	object-fit: cover;
+}
+      
+    </style>
+    <script src="https://kit.fontawesome.com/632d3e2496.js" crossorigin="anonymous"></script>
+  </head>
+  <body>
+    <main>
+      <header>
+        <h1>
+          <i class="fab fa-firstdraft"></i><br />
+          <span>DCODELAB</span>
+        </h1>
+        <address>2024 DCODELAB<br />ALL RIGHT RESERVED.</address>
+      </header>
+      <nav>
+        <ul>
+          <li>
+            <a href="#"><i class="fas fa-envelope"></i></a>
+          </li>
+          <li>
+            <a href="#"><i class="fas fa-search"></i></a>
+          </li>
+        </ul>
+      </nav>
+      <section>
+        <article>
+          <div class="inner">
+            <div class="txt">
+              <h2>01</h2>
+              <p>Lorem, ipsum dolor sit amet consectetur adipisicing elit.</p>
+            </div>
+            <figure>
+              <video src="images/241018_vid1.mp4" muted loop></video>
+            </figure>
+          </div>
+        </article>
+
+        <article>
+          <div class="inner">
+            <div class="txt">
+              <h2>02</h2>
+              <p>Lorem, ipsum dolor sit amet consectetur adipisicing elit.</p>
+            </div>
+            <figure>
+              <video src="images/241018_vid2.mp4" muted loop></video>
+            </figure>
+          </div>
+        </article>
+
+        <article>
+          <div class="inner">
+            <div class="txt">
+              <h2>03</h2>
+              <p>Lorem, ipsum dolor sit amet consectetur adipisicing elit.</p>
+            </div>
+            <figure>
+              <video src="images/241018_vid3.mp4" muted loop></video>
+            </figure>
+          </div>
+        </article>
+
+        <article>
+          <div class="inner">
+            <div class="txt">
+              <h2>04</h2>
+              <p>Lorem, ipsum dolor sit amet consectetur adipisicing elit.</p>
+            </div>
+            <figure>
+              <video src="images/241018_vid4.mp4" muted loop></video>
+            </figure>
+          </div>
+        </article>
+      </section>
+      <aside>
+        <div class="txt">
+          <h1>01</h1>
+          <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit.</p>
+          <span>CLOSE</span>
+        </div>
+        <figure>
+          <video src="images/241018_vid1.mp4" loop muted></video>
+        </figure>
+      </aside>
+    </main>
+
+    <script>
+      const items = document.querySelectorAll('article');
+      const aside = document.querySelector('aside');
+      const close = document.querySelector('aside span');
+
+      for(const el of items){
+        el.addEventListener('mouseenter', ()=>{
+          el.querySelector('video').play();
+        })
+        el.addEventListener('mouseleave', ()=>{
+          el.querySelector('video').pause();
+        })
+        el.addEventListener('click', ()=>{
+          let tit = el.querySelector('h2').innerText;
+          let txt = el.querySelector('p').innerText;
+          let vidSrc = el.querySelector('video').getAttribute('src');
+          
+          aside.querySelector('h1').innerText = tit;
+          aside.querySelector('p').innerText = txt;
+          aside.querySelector('video').setAttribute('src',vidSrc);
+
+          aside.classList.add('on');
+          aside.querySelector('video').play();
+        })
+      }
+      close.addEventListener('click', ()=>{
+        aside.classList.remove('on');
+        aside.querySelector('video').pause();
+      })
+
+    </script>
+  </body>
+</html>
