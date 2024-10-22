@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>연습_패럴랙스(gsap)</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@100..900&display=swap" rel="stylesheet"/>
+    <style>
+      * {
+        padding: 0;
+        margin: 0;
+        font-family: "Noto Sans KR", sans-serif;
+        box-sizing: border-box;
+      }
+
+      a {
+        color: inherit;
+        text-decoration: none;
+      }
+
+      .memo {
+        padding: 40px 0;
+        line-height: 1.6;
+        font-size: 15px;
+        color: #222;
+      }
+
+      .memo ul {
+        padding: revert;
+        list-style: disc;
+      }
+
+      .memo > .item ~ .item {
+        margin-top: 40px;
+      }
+
+      .memo > .item h4 {
+        padding-left: 20px;
+        margin-bottom: 8px;
+      }
+
+      .memo > .item .pre {
+        margin-top: -28px;
+        margin-left: -6px;
+        white-space: pre;
+      }
+
+      .memo > .item ul + .pre {
+        margin-top: -16px;
+      }
+
+      .memo > .item .pre br {
+        display: none;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="memo">
+      <div class="item">
+        <h4>GSAP, ScrollTrigger 설치</h4>
+        <ul>
+          <li>&lt;script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.4/gsap.min.js"&gt;&lt;/script&gt;</li>
+          <li>&lt;script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.4/ScrollTrigger.min.js"&gt;&lt;/script&gt;</li>
+        </ul>
+      </div>
+      <div class="item">
+        <h4>NPM</h4>
+        <div class="pre">
+          npm install gsap<br/>
+          npm install gsap@3.6.0<br/>
+          npm install gsap@3.6.0 scrolltrigger
+        </div>
+      </div>
+
+      <div class="item">
+        <h4>gsap.to('요소', { 옵션, 시간 })</h4>
+        <ul>
+          <li>gsap.to() : 현재 상태에서 시작하여 지정된 상태로 애니메이션을 적용</li>
+          <li>gsap.from() : 지정된 상태에서 시작하여 현재 상태로 애니메이션을 적용</li>
+          <li>gsap.fromTo() : 지정된 상태에서 시작하여 지정된 상태로 애니메이션을 적용</li>
+        </ul>
+        <div class="pre">
+          gsap.to('.green', { rotation: 360, x: 100, duration: 1 })<br/>
+          // 1초 동안 x축으로 100px 이동하면서 360도 회전<br/>
+          <br/>
+          gsap.from('.purple', { rotation: -360, x: -100, duration: 1 })<br/>
+          // 1초 동안 x축으로 -100px에서 0px로 이동하면서 -360도 회전<br/>
+          <br/>
+          gsap.fromTo('.blue', { x: -100 }, { rotation: 360, x: 100, duration: 1 })<br/>
+          // 1초 동안 x축으로 -100px에서 100px로 이동하면서 360도 회전
+        </div>
+      </div>
+      <div class="item">
+        <h4>gsap.timeline()</h4>
+        <ul>
+          <li>add() : 해당 요소에 애니메이션을 추가</li>
+          <li>addLabel() : 해당 요소에 레이블을 추가</li>
+          <li>play() : 애니메이션을 실행</li>
+          <li>pause() : 애니메이션을 일시정지</li>
+          <li>reverse() : 애니메이션을 역방향으로 실행</li>
+          <li>time() : 애니메이션의 시간을 설정</li>
+          <li>seek() : 애니메이션의 위치를 설정</li>
+          <li>duration() : 애니메이션의 지속 시간을 설정</li>
+          <li>repeat() : 애니메이션을 반복</li>
+          <li>yoyo() : 애니메이션을 왕복</li>
+          <li>progress() : 애니메이션의 진행 상태를 설정</li>
+          <li>kill() : 애니메이션을 중지</li>
+        </ul>
+        <div class="pre">
+          const tl = gsap.timeline();<br/>
+          tl.to('.green', { duration: 2, x: 800 }, 1.5) // 2초 동안 x축으로 100px 이동 (1.5초 후에 실행)<br/>
+          .to('.orange', { duration: 1, y: 500 }, '-=0.75') // 1초 동안 y축으로 200px 이동 (0.75초 전에 실행)<br/>
+          .to('.yellow', { duration: 3, rotation: 360, x: 800, y: 300 }, '+=1') // 3초 동안 360도 회전 (1초 후에 실행)
+        </div>
+      </div>
+      <div class="item">
+        <h4>ScrollTrigger</h4>
+        <ul>
+          <li>trigger : 트리거가 되는 요소</li>
+          <li>start : 트리거가 되는 요소의 시작 위치</li>
+          <li>end : 트리거가 되는 요소의 끝 위치</li>
+          <li>scrub : 스크롤 속도에 따라 애니메이션 속도가 달라짐</li>
+          <li>pin : 해당 요소를 고정</li>
+          <li>markers : 해당 요소의 트리거를 표시</li>
+        </ul>
+        <div class="pre">
+          gsap.to('.box', {<br/>
+            x: 100,<br/>
+            scale: 2,<br/>
+            duration: 1,<br/>
+            scrollTrigger: {<br/>
+                trigger: '.box',<br/>
+                start: 'top center',<br/>
+                end: 'bottom center',<br/>
+                scrub: true,<br/>
+                markers: true,<br/>
+            },<br/>
+          })
+        </div>
+      </div>
+    </div> <!-- end memo -->
+  </body>
+</html>
