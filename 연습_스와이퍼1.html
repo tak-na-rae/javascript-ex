@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8" />
+  <title>Swiper demo</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1, maximum-scale=1" />
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css" />
+
+  <style>
+    html,
+    body {
+      position: relative;
+      height: 100%;
+    }
+
+    body {
+      background: #eee;
+      font-family: Helvetica Neue, Helvetica, Arial, sans-serif;
+      font-size: 14px;
+      color: #000;
+      margin: 0;
+      padding: 0;
+    }
+
+    .swiper {
+      width:600px;
+      height:300px;
+      background-color:#050505;
+    }
+
+    .swiper-slide {
+      text-align: center;
+      font-size: 18px;
+      background: #fff;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+
+    .swiper-slide img {
+      display: block;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+
+    .swiper-button-next, .swiper-button-prev {
+      color:#fff;
+    }
+
+    .swiper-pagination-progressbar .swiper-pagination-progressbar-fill {
+      background:#fff;
+    }
+
+    .swiper-pagination-progressbar {
+      max-width: 30%;
+      margin: 0 auto;
+      background-color:rgba(255,255,255,.5);
+      top: auto !important;
+      right: 0;
+      bottom: 24px;
+      border-radius: 50px;
+      overflow:hidden;
+    }
+  </style>
+</head>
+
+<body>
+  <div class="swiper mySwiper">
+    <div class="swiper-wrapper">
+      <div class="swiper-slide"><img src="images/241024_pic1.png"/></div>
+      <div class="swiper-slide"><img src="images/241024_pic2.png"/></div>
+      <div class="swiper-slide"><img src="images/241024_pic3.png"/></div>
+      <div class="swiper-slide"><img src="images/241024_pic4.png"/></div>
+      <div class="swiper-slide"><img src="images/241024_pic5.png"/></div>
+    </div>
+    <div class="swiper-button-next"></div>
+    <div class="swiper-button-prev"></div>
+    <div class="swiper-pagination"></div>
+  </div>
+
+  <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
+  <script>
+    var swiper = new Swiper(".mySwiper", {
+      grabCursor: true,
+      pagination: {
+        el: ".swiper-pagination",
+        type: "progressbar",
+      },
+      navigation: {
+        nextEl: ".swiper-button-next",
+        prevEl: ".swiper-button-prev",
+      },
+    });
+  </script>
+</body>
+
+</html>
