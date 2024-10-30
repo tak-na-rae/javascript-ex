@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>241030</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@100..900&display=swap" rel="stylesheet">
+  <style>
+    * { padding:0; margin:0; font-family:"Noto Sans KR", sans-serif; box-sizing:border-box; }
+    a { color:inherit; text-decoration:none; }
+    ul,li { list-style:none; }
+  </style>
+</head>
+<body>
+
+  <canvas class="canvas" width="600" height="400" style="background-color:#222;"></canvas>
+
+  <script>
+    // width, height : canvas의 넓이와 높이를 저장
+    // x,y : 원의 현재 위치를 저장
+
+    let canvas, ctx, width, height, x, y;
+    let dx = 6; //dx, dy : 원의 움직임 속도 및 방향을 제어
+    let dy = 5;
+
+    addEventListener('load', ()=>{
+      canvas = document.querySelector('canvas');
+      ctx = canvas.getContext('2d');
+
+      width = canvas.width;
+      height = canvas.height;
+      x = width; //원의 초기 위치는 캔버스 오른쪽 하단 모서리
+      y = height;
+      setInterval(move, 20);
+    })
+    
+    function move(){
+      ctx.clearRect(0,0,width,height); //지우고 그리고 지우고 그림
+      circle(x,y,10); //현재 위치(x, y)에 반지름 10인 원을 그리는 함수 호출
+
+      if(x + dx > width || x + dx < 0) dx = -dx; //원이 canvas 좌우 끝에 닿았을때 방향을 반대로 바꿔줌
+      if(y + dy > height || y + dy < 0) dy = -dy; //원이 canvas 상하 끝에 닿았을때 방향을 반대로 바꿔줌
+
+      x += dx; //x축 방향으로 이동
+      y += dy; //y축 방향으로 이동
+    }
+    function circle(x,y,r){
+      ctx.beginPath(); //패스시작**
+      ctx.arc(x, y, r, 0, 2*Math.PI); //x,y중심에서 r는 반지름,0에서 2*Math.PI=360도 로 원 그림
+      ctx.fillStyle = 'red';
+      ctx.fill();
+    }
+
+  </script>
+</body>
+</html>

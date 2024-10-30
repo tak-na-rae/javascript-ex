@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>241030</title>
+  <style>
+    [class*='-btn'] { width:30px; height:30px; border-radius:50%; border:0; cursor:pointer; }
+    .color-btn[data-color='black'] { background-color:black; }
+    .color-btn[data-color='red'] { background-color:red; }
+    .color-btn[data-color='yellow'] { background-color:yellow; }
+    .color-btn[data-color='blue'] { background-color:blue; }
+    .img-btn { background:transparent url(images/241030_star.png)no-repeat center/contain; }
+  </style>
+</head>
+<body>
+  <canvas class="canvas" width="600" height="600" style="background:#eee;"></canvas>
+  <div class="control">
+    <button class="color-btn" data-type="color" data-color="black"></button>
+    <button class="color-btn" data-type="color" data-color="red"></button>
+    <button class="color-btn" data-type="color" data-color="yellow"></button>
+    <button class="color-btn" data-type="color" data-color="blue"></button>
+    <button class="img-btn" data-type="image"></button>
+    <button class="color-btn" data-type="clear"></button>
+  </div>
+
+  <button class="btn-save">이미지 저장</button>
+  <div class="img-result"></div>
+
+  <script>
+    const cv = document.querySelector('.canvas');
+    const ctx = cv.getContext('2d');
+    const control = document.querySelector('.control');
+    const btnSave = document.querySelector('.btn-save');
+    const result = document.querySelector('.img-result');
+
+    let drawMode; //true일때만
+    let colorVal = 'black'; //기본값
+    let brush = 'color'; //'color','img' 타입구분
+
+    //이미지 객체 생성
+    const imgEl = new Image();
+    imgEl.src = 'images/241030_star.png';
+
+    function downHandler(){
+      drawMode = true;
+    }
+    function upHandler(){
+      drawMode = false;
+    }
+    function moveHandler(e){
+      if(!drawMode) return;
+      switch(brush){
+        case 'color':
+          ctx.beginPath();
+          ctx.arc(e.offsetX, e.offsetY, 10, 0, Math.PI*2, false);
+          ctx.fill();
+          break;
+        case 'image':
+          ctx.drawImage(imgEl, e.offsetX-25, e.offsetY-25, 50, 50);
+          break;
+          case 'clear':
+            ctx.clearRect(e.offsetX-5, e.offsetY-5, 30, 30);
+            break;
+      }
+    }
+    function setColor(e){
+      //brush 변수의 값을 클릭한 버튼의 data-type값으로 변경
+      brush = e.target.getAttribute('data-type');
+      colorVal = e.target.getAttribute('data-color');
+      ctx.fillStyle = colorVal;
+    }
+    function createImg(){
+      const url = cv.toDataURL('image/png');
+      const imgEl = new Image();
+      imgEl.src = url;
+      result.appendChild(imgEl);
+      ctx.clearRect(0,0,cv.width,cv.height);
+    }
+
+    cv.addEventListener('mousedown', downHandler); //버튼눌렀을때
+    cv.addEventListener('mouseup', upHandler); //버튼뗐을때
+    cv.addEventListener('mousemove', moveHandler); //버튼뗐을때
+    control.addEventListener('click', setColor);
+    btnSave.addEventListener('click', createImg);
+  </script>
+</body>
+</html>

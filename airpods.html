@@ -1,0 +1,384 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta uttp-equiv="X-UA-Compotible" contnet="IE=edge"> <!--ie호환성-->
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Airpods</title>
+  <link rel="icon" type="image/png" sizes="16x16" href="images/241030_favicon.ico">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
+  <style>
+    * { padding:0; margin:0; font-family:"Noto Sans", sans-serif; box-sizing:border-box; }
+    body { background-color:#000; color:#fff; }
+    a { color:inherit; text-decoration:none; }
+    ul,li { list-style:none; }
+    button { background:transparent; color:inherit; border:0; outline:none; cursor:pointer; }
+
+    .nav-content { width:980px; padding:0 10px; margin:0 auto; }
+    .nav-content ul { display:flex; align-items:center; justify-content:space-between; gap:24px; }
+
+    /* apple-navbar */
+    .apple-navbar a { line-height:44px; font-size:12px; color:#bbb; }
+    .apple-navbar ion-icon { font-size:18px; transform:translateY(3px); }
+    .apple-navbar a:hover { color:#fff; transition:.25s ease; }
+
+    /* airpods-navbar */
+    .airpods-navbar .nav-content { padding-top:18px; padding-bottom:12px; border-bottom:1px solid rgba(255,255,255,.25); display:flex; align-items:center; justify-content:space-between; }
+    .airpods-navbar .nav-logo a { line-height:24px; font-size:22px; font-weight:600; color:#fff; }
+    .airpods-navbar .nav-items button { line-height:22px; font-size:12px; }
+    .airpods-navbar .nav-items button:not(.buy-btn):hover { color:#2997ff; }
+    .airpods-navbar .nav-items button[disabled],.airpods-navbar .nav-items button[disabled]:hover { color:#bbb; cursor:no-drop; }
+    .airpods-navbar .nav-items .buy-btn { padding:0 12px; background-color:#147ce5; border-radius:12px; }
+
+    /* 스크롤을 내리면 두번째 네비를 뷰포트 상단에 고정 , backdrop-filter 요소 밑으로 비춰지는 효과 적용 */
+    .sticky { width:100%; backdrop-filter:saturate(180%) blur(15px); position:fixed; top:0; z-index:10; border-bottom:1px solid rgba(255,255,255,.25); }
+    .sticky .nav-content { border-bottom:0; }
+    .sticky section { padding-top:44px; }
+
+    section { min-height:100vh; color:#fff; overflow:hidden; }
+    section.scroll-section { height:calc(100vh - 44px); position:relative; } /* 44px = .apple-navbar */
+    .canvas-el { width:100%; height:100%; /*z-index:1;*/ display:flex; align-items:center; justify-content:center; }
+
+    /* main-el(section01) , msg-el(section02) */
+    .main-el, .msg-el { width:max-content; text-align:center; position:absolute; top:50%; left:50%; z-index:5; transform:translate(-50%,-50%); }
+    .main-el { font-size:100px; }
+    .main-el a { font-size:22px; font-weight:600; }
+    .main-el a:hover { text-decoration:underline; }
+    .main-el span { font-style:italic; }
+    .main-el ion-icon { font-size:28px; transform:translateY(6px); }
+    .msg-el { transform:translate(-50%,0); opacity:0; }
+    .msg-el p { line-height:68px; font-size:64px; font-weight:600; }
+    .msg-el small { font-size:18px; font-weight:300; }
+    .msg-el h2 { font-size:80px; }
+
+    .section-01 canvas { width:900px; }
+    .section-02 canvas { width:100%; height:100%; object-fit:cover; }
+
+    .static-section { padding:50px 0; position:relative; }
+    .static-section > div { position:relative; display:flex; align-items:center; justify-content:center; }
+
+    .section-03 .text { width:340px; font-size:22px; font-weight:600; position:absolute; }
+    .section-03-1 .text { bottom:40px; left:14%; }
+    .section-03-2 .text { bottom:42px; left:23.5%; }
+    .section-03-3 .text { top:25%; left:25%; }
+
+    .section-04 .text { font-size:22px; font-weight:600; position:absolute; }
+    .section-04-1 .text { text-align:center; top:50%; left:50%; transform:translate(-50%, -50%); }
+    .section-04-1 .text p { padding-bottom:20px; font-size:21px; font-weight:300; }
+    .section-04-1 .text h1 { line-height:1.18; font-size:96px; font-weight:700; }
+    .section-04-2 .text { width:365px; font-size:24px; right:18%; bottom:0; }
+    .section-04-3 .text { top:25%; left:25%; }
+
+    .section-05 { padding-bottom:0; }
+    .section-05 img { width:100%; }
+    .section-05 .text { width:440px; text-align:left; position:absolute; left:17%; bottom:120px; display:block; }
+    .section-05 .text p { padding:22px; font-size:21px; font-weight:700; color:#fff; }
+
+    footer { width:100%; background-color:#fff; color:#999; display:flex; justify-content:center; }
+    footer .content { width:980px; padding:40px 10px; display:flex; align-items:center; justify-content:space-between; }
+  </style>
+</head>
+<body>
+  
+  <header>
+    <nav class="apple-navbar">
+      <div class="nav-content">
+        <ul class="nav-items">
+          <li><a href="#"><ion-icon name="logo-apple"></ion-icon></a></li>
+          <li><a href="#">Store</a></li>
+          <li><a href="#">Mac</a></li>
+          <li><a href="#">IPad</a></li>
+          <li><a href="#">Airpods</a></li>
+          <li><a href="#">TV &amp; Home</a></li>
+          <li><a href="#">Support</a></li>
+          <li><a href="#"><a href="#"><ion-icon name="search-outline"></ion-icon></a></a></li>
+          <li><a href="#"><a href="#"><ion-icon name="bag-outline"></ion-icon></a></a></li>
+        </ul>
+      </div>
+    </nav>
+    <nav class="airpods-navbar">
+      <div class="nav-content">
+        <div class="nav-logo"><a href="#">AirPods Pro</a></div>
+        <ul class="nav-items">
+          <li><button disabled>Overview</button></li>
+          <li><button>Tech Specs</button></li>
+          <li><button>Compare</button></li>
+          <li><button class="buy-btn">Buy</button></li>
+        </ul>
+      </div>
+    </nav>
+  </header>
+
+  <main>
+    <section class="section-01 scroll-section airpods">
+      <div class="main-el">
+        <h1>AirPods Pro</h1>
+        <a href="#">Watch <span>Jump</span> <ion-icon name="play-circle-outline"></ion-icon></a>
+      </div>
+      <div class="canvas-el">
+        <canvas id="airpods"></canvas>
+      </div>
+      <div class="msg-el msg-el-01">
+        <p>
+          Active Noise Cancellation <br />
+          for immersive sound.
+        </p>
+      </div>
+      <div class="msg-el msg-el-02">
+        <p>
+          Transparency mode for hearing <br />
+          what's happening around you.
+        </p>
+      </div>
+      <div class="msg-el msg-el-03">
+        <p>
+          A customisable fit <br />
+          for all-day comfort.
+        </p>
+      </div>
+      <div class="msg-el msg-el-04">
+        <p>Magic like you've never heard.</p>
+      </div>
+    </section> <!--//section-01-->
+    <section class="section-02 scroll-section head-bob-turn">
+      <div class="msg-el">
+        <small>Comfort</small>
+        <h2>Arrival of the fittest.</h2>
+      </div>
+      <div class="canvas-el">
+        <canvas id="head-bob"></canvas>
+      </div>
+    </section> <!--//section-02-->
+    
+    <section class="section-03 static-section explode-tips">
+        <div class="section-03-1">
+          <img src="images/241030_0000.jpg" alt="" />
+          <div class="text">
+            편안함의 디테일을 다듬어 새로운 차원의 인이어를 창조했습니다. 뛰어난 밀착력을 제공하는 맞춤형 핏을 갖춘 헤드폰 능동형 소음 제거용. 당신은 당신의 음악을 느낄 것입니다.
+          </div>
+        </div>
+
+      <div class="section-03-2">
+          <img src="images/241030_0080.jpg" alt="" />
+          <div class="text">
+            세 가지 크기의 부드럽고 유연한 실리콘 팁 중에서 선택하세요. 가장 잘
+            맞는 것을 찾고 최상의 사운드를 얻으십시오.
+          </div>
+        </div>
+
+      <div class="section-03-3">
+          <img src="images/241030_0138.jpg" alt="" />
+          <div class="text">
+            내부가 가늘어지는 이 팁은 귀 모양에 맞춰져 유지됩니다. AirPods Pro는 안전합니다. 그리고 압력 균등화에 도움이 되는 통풍구를 통해 귀에 아무것도 없는 것 같은 느낌
+          </div>
+        </div>
+    </section> <!--//section-03-->
+    <section class="section-04 static-section flip-for-nc">
+        <div class="section-04-1">
+          <img src="images/241030_0026.jpg" alt="" />
+          <div class="text">
+            <p>Active Noise Cancellation</p>
+            <h1>
+              Sound that cuts <br />
+              out the noise.
+            </h1>
+          </div>
+        </div>
+
+      <div class="section-04-2">
+          <img src="images/241030_0054.jpg" alt="" />
+          <div class="text">
+            AirPods Pro는 액티브 노이즈를 지원하는 유일한 인이어 헤드폰입니다.
+            귀의 기하학적 형태에 지속적으로 적응하는 취소 기능 그리고 이어팁의 핏 - 세상을 차단하여 당신이 듣고 있는 것에 집중하세요.
+          </div>
+        </div>
+    </section> <!--//section-04-->
+    <section class="section-05 static-section transparency-head">
+        <img src="images/241030_0008.jpg" alt="" />
+        <div class="text">
+          <p>
+            주변에서 무슨 일이 일어나고 있는지 듣고 싶으십니까? 길게 누르시면 됩니다 스템의 포스 센서가 액티브 노이즈 캔슬링 사이를 이동합니다.
+            투명도 모드 - 외부 소리가 들어오도록 하고 사람들과 대화할 때 자연스럽게 들리고 느껴져야 하는 것.
+          </p>
+          <p>
+            그리고 시끄러운 곳에서 누군가와 얼굴을 맞대고 이야기를 하고 있을 때
+            환경에서 Conversation Boost는 다음과 같은 방법으로 더 명확하게 들을 수 있도록 도와줍니다.
+          </p>
+        </div>
+    </section> <!--//section-05-->
+  </main>
+  <footer>
+    <div class="content">
+      <small>Copyright © 2024 Apple Inc. All rights reserved.</small>
+      <small>Korea.</small>
+    </div>
+  </footer>
+
+  <script type="module" src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.esm.js"></script>
+  <script nomodule src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.js"></script>
+
+  <script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/gsap.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/ScrollTrigger.min.js"></script>
+  <script> //section1
+    const navbar = document.querySelector('.airpods-navbar');
+    const originY = navbar.offsetTop; //airpords-navbar의 y축으로 top의 위치값을 originY에 할당 (값44)
+    window.addEventListener('scroll', ()=>{
+      if(scrollY >= originY) { //스크롤 이동값이 originY보다 커지면 실행
+        navbar.classList.add('sticky');
+      } else {
+        navbar.classList.remove('sticky');
+      }
+    })
+
+    gsap.registerPlugin(ScrollTrigger);
+    const section1 = document.querySelector('.section-01');
+    const mainEl = document.querySelector('.main-el');
+    const msgTxt1 = document.querySelector('.msg-el-01');
+    const msgTxt2 = document.querySelector('.msg-el-02');
+    const msgTxt3 = document.querySelector('.msg-el-03');
+    const msgTxt4 = document.querySelector('.msg-el-04');
+
+    // 캔버스 크기설정
+    const cv1 = document.querySelector('#airpods'); //section-01
+    const ctx1 = cv1.getContext('2d');
+
+    cv1.width = 1158;
+    cv1.height = 770;
+
+    const images1 = []; //프레임 저장할 배열 생성
+    const airpods = {frame:0} //현재 프레임 추적
+    const frameCount1 = 147; //총 이미지의 수
+
+    //이미지 경로를 frameCount의 수 만큼 받아서 images1 배열에 저장
+    const currentFrame1  = (idx) =>{ //idx를 받아서 이미지 경로를 생성하는 함수
+      //idx가 0일 경우 `images/airpods/0001.jpg`를 반환
+      return `images/airpods/${(idx + 1).toString().padStart(4,'0')}.jpg` //.padStart(내가 원하는 글자수, '0')로 만들어줌
+    }
+
+    for(let i = 0; i < frameCount1; i++){
+      const img = new Image(); //이미지생성
+      img.src = currentFrame1(i);
+      images1.push(img); //images1배열에 생성한 이미지 저장
+      img.onload = ()=>{
+        //첫번째 이미지가 로드되면 render1 호출(이미지를 캔버스에 그려줄 함수)
+        if(i == 0) render1();
+      }
+    }
+
+    // 초기 로딩 애니메이션
+    let tl0 = gsap.timeline();
+    tl0.add('start0') //타임라인에 start0에 레이블을 추가 .to()메서드에 3번째 인자값으로
+    .fromTo(cv1, {opacity:0}, {duration:2, opacity:1}, 'start0') //start0 지점에서 캔버스가 2초동안 서서히 보여짐
+    .fromTo(mainEl,{opacity:0}, {duration:1.5, delay:.75, opacity:1}, 'start0');
+
+    // 스크롤 애니메이션
+    const tl1 = gsap.timeline({
+      scrollTrigger:{
+        trigger: section1,
+        start: 'top top', //애니메이션 시작시점 'top top+=60'
+        end: '+=4000', //종료시점은 시작시점에서 4000px 아래로 설정
+        pin: true,
+        scrub: true, //스크롤 위치에 따라 애니메이션 동기화
+        markers: true,
+      }
+    })
+    tl1.add('start0')
+    .to(mainEl, {duration:5, y:-1000}, 'start0')
+    .to(
+      airpods,{
+        duration: 8,
+        frame: 138, //iframe 프로퍼티를 0부터 138까지 8초동안 증가
+        snap: 'frame', //이미지를 프레임 단위로 스냅(이미지 담기)
+        ease: 'none',
+        onUpdate: render1, //프레임이 변경될때 함수 호출
+      },
+      'start0'
+    )
+
+    .add('start1')
+    .to(msgTxt1, {duration:3.5, opacity:1, y:-50}, 'start1')
+    .to(msgTxt1, {duration:3.5, opacity:0, y:-100})
+    .add('start2')
+    .to(msgTxt2, {duration:3.5, opacity:1, y:-50}, 'start2')
+    .to(msgTxt2, {duration:3.5, opacity:0, y:-100})
+    .add('start1')
+    .to(msgTxt3, {duration:3.5, opacity:1, y:-50}, 'start3')
+    .to(msgTxt3, {duration:3.5, opacity:0, y:-100})
+    .add('start4')
+    .to(msgTxt4, {duration:3.5, opacity:1, y:-50}, 'start4')
+    .to(msgTxt4, {duration:3.5, opacity:0, y:-100})
+
+    .to(airpods,{
+      duration: 1,
+      frame: frameCount1 - 1,
+      snap: 'frame',
+      ease: 'none',
+      onUpdate: render1,
+    })
+    .to(cv1, {duration:36, scale:0, ease:'power1.out'}, 'start0') //tl1이랑 같은 시점 시작
+
+    // 이미지 렌더링
+    function render1(){
+      ctx1.clearRect(0, 0, cv1.width, cv1.height); //캔버스의 이미지를 지우고
+      ctx1.drawImage(images1[airpods.frame], 0, 0); //const airpods 처음에 0 전달
+    }
+   </script>
+   <script>  //section2
+    const section2 = document.querySelector('.section-02');
+    const msgTxt = section2.querySelector('.msg-el');
+    const cv2 = document.querySelector('#head-bob');
+    const ctx2 = cv2.getContext('2d');
+
+    cv2.width = 1458;
+    cv2.height = 820;
+
+    const images2 = [];
+    const headturn = {frame:0};
+    const frameCount2 = 131;
+
+    //이미지 경로를 frameCount의 수 만큼 받아서 images2 배열에 저장
+    const currentFrame2  = (idx) =>{ //idx를 받아서 이미지 경로를 생성하는 함수
+      //idx가 0일 경우 `images/head-bob-turn/0001.jpg`를 반환
+      return `images/head-bob-turn/${(idx + 1).toString().padStart(4,'0')}.jpg` //.padStart(내가 원하는 글자수, '0')로 만들어줌
+    }
+
+    for(let i = 0; i < frameCount2; i++){
+      const img = new Image(); //이미지생성
+      img.src = currentFrame2(i);
+      images2.push(img); //images2배열에 생성한 이미지 저장
+      img.onload = ()=>{
+        //첫번째 이미지가 로드되면 render2 호출(이미지를 캔버스에 그려줄 함수)
+        if(i == 0) render2();
+      }
+    }
+    let tl2 = gsap.timeline({
+      scrollTrigger: {
+        trigger: section2, 
+        start: 'top top',
+        end: '+=4000',
+        pin: true,
+        scrub: true,
+      }
+    })
+    tl2.add('start0') //객체 새로 생성했으니 tl1 start0과 별개
+    .to(msgTxt, {delay:11, duration:3.5, opacity:1,  y:-50}, 'start0')
+    .to(msgTxt, {duration:3.5, opacity:0,  y:-100})
+    .to(
+      headturn,{
+        duration: 19, //frame속성을 0에서 마지막 프레임까지 19초동안 애니메이션
+        frame: frameCount2 - 1,
+        snap: 'frame',
+        ease: 'none',
+        onUpdate: render2,
+      },
+      'start0'
+    );
+    function render2(){
+      ctx2.clearRect(0, 0, cv2.width, cv2.height); //캔버스의 이미지를 지우고
+      ctx2.drawImage(images2[headturn.frame], 0, 0); //const airpods 처음에 0 전달
+    }
+   </script>
+</body>
+</html>

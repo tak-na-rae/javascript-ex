@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>241030</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@100..900&display=swap" rel="stylesheet">
+  <style>
+    * { padding:0; margin:0; font-family:"Noto Sans KR", sans-serif; box-sizing:border-box; }
+    a { color:inherit; text-decoration:none; }
+    ul,li { list-style:none; }
+  </style>
+</head>
+<body>
+
+  <canvas class="canvas1" width="600" height="400" style="background-color:#222;"></canvas>
+  <canvas class="canvas2" width="600" height="400" style="background-color:#eee;"></canvas>
+
+  <script>
+    const cv1 = document.querySelector('.canvas1');
+    const ct1 = cv1.getContext('2d');
+    ct1.fillRect(50,50,100,100); //.fillRect(x좌표,y좌표,z크기,y축크기)
+    ct1.fillStyle = 'red'; //.fillStyle = 색상변경
+    ct1.fillRect(0,0,100,100);
+    ct1.clearRect(75,75,50,50); //.clearRect = 지우기 // 뒤에 크기를 줄이면 삭제
+    ct1.strokeRect(150,150,100,100); //.strokeRect = 선그리기(x좌표,y좌표,width,height)
+
+    const cv2 = document.querySelector('.canvas2');
+    const ct2 = cv2.getContext('2d');
+    ct2.beginPath(); //새로운 패스 생성**
+    ct2.moveTo(200,100); //moveTo(x,y) 위치를 시작점으로 설정
+    ct2.lineTo(300,200);
+    ct2.strokeStyle = 'red';
+    ct2.stroke(); //선만들기
+    ct2.closePath(); //패스종료** 패스(선)일때만 사용 
+
+    //원그리기 .arc(x,y,radius,startAngle,endAngle(radian),anticlockwise) 각도는 라디안(호도)
+    function radian(angle) {
+      return angle * Math.PI / 180;
+    }
+    ct2.beginPath(); //새로 그릴때마다 적용해야함**
+    ct2.arc(300,200,50,0,radian(360),false) //radian(180)반원
+    ct2.fill(); //.arc 패스라서 색상을 무조건 채워야함**
+  </script>
+</body>
+</html>

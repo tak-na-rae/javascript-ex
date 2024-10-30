@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>241030</title>
+</head>
+<body>
+  <canvas class="canvas" width="600" height="600" style="background:#eee;"></canvas>
+
+  <script>
+    const cv = document.querySelector('canvas');
+    const ctx = cv.getContext('2d');
+
+    const imgEl = new Image();
+    imgEl.src = 'images/241030_ebc.png';
+    imgEl.addEventListener('load', ()=>{
+      ctx.drawImage(imgEl, 50, 50, 200, 300); //이미지요소,x,y,width,height
+      ctx.drawImage(imgEl, 300, 100, 150, 200, 0, 0, 75, 100); //이미지요소,x,y,width,height
+    })
+  </script>
+</body>
+</html>
