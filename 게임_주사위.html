@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>241101</title>
+  <style>
+    #arena{
+      width:480px;
+      height:360px;
+      margin:auto;
+      background:url(images/241101_rays.svg) no-repeat center/cover;
+    }
+    #home{
+      margin:105px 10px;
+      float:left;
+    }
+    #guest{
+      margin:105px 10px;
+      float:right;
+    }
+    #control{
+      width:480px;
+      margin:20px auto 0;
+      line-height:30px;
+      text-align: center;
+      background-color:#cbc39d;
+      cursor:pointer;
+    }
+  </style>
+</head>
+<body>
+
+  <div id="control">시작</div>
+  <div id="arena">
+      <img id="home" src="images/241101_dice-1.png" alt="home">
+      <img id="guest" src="images/241101_dice-1.png" alt="guest">
+  </div>
+
+  <script>
+    document.querySelector('#control').addEventListener('click', function(){
+      // this.firstChild.nodeValue == this.textContent
+      if(this.firstChild.nodeValue == '시작'){ //게임시작
+        this.firstChild.nodeValue = '종료/결과';
+        this.style.backgroundColor = '#9da5cd';
+        this.style.color = '#fff';
+        playGame();
+      } else { //결과 및 게임종료
+        this.style.backgrounColor = '#cbc39d';
+        this.firstChild.nodeValue = '시작';
+        this.style.color = '#000';
+        stopGame();
+      }
+    })
+
+    const home = document.querySelector('#home');
+    const guest = document.querySelector('#guest');
+
+    function playGame(){
+      home.src = 'images/241101_dice.gif';
+      guest.src = 'images/241101_dice.gif';
+    }
+
+    function stopGame(){
+      let homeItem = Math.floor(Math.random() * 6) + 1;
+      let guestItem = Math.floor(Math.random() * 6) + 1;
+      console.log(homeItem, guestItem)
+      home.src = `images/241101_dice-${homeItem}.png`;
+      guest.src = `images/241101_dice-${guestItem}.png`;
+
+      setTimeout(function(){ //.5초 뒤에 경고창으로 결과
+        if(homeItem > guestItem){
+          alert('이겼다');
+        } else if(homeItem < guestItem){
+          alert('졌다');
+        } else {
+          alert('무승부');
+        }
+      },500)
+    }
+  </script>
+  
+</body>
+</html>

@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>클래스</title>
+</head>
+
+<body>
+  <script>
+    //클래스 생성
+    class Person {
+      //생성자
+      constructor(s, i) {
+        //멤버 변수
+        this.name = s;
+        this.age = i;
+      }
+    }
+    //인스턴스 생성
+    let person = new Person("홍길동", 16)
+    let person2 = new Person("이호용", 25)
+    let person3 = new Person("김소현", 15)
+    let person4 = new Person("성지혜", 20)
+    console.log(person, person2, person3, person4)
+
+
+    // class Rectangle {
+    //   constructor(w, h) {
+    //     this.width = w;
+    //     this.height = h;
+    //   }
+
+    //   area() {
+    //     return this.width * this.height;
+    //   }
+    // }
+
+    // let rectangle = new Rectangle(10, 15);
+    // console.log(rectangle); //Rectangle { width: 10, height: 15 }
+    // console.log(rectangle.area()); //150
+
+    class Figure {
+      constructor(x, y) {
+        this.x = x;
+        this.y = y;
+      }
+
+      move(dx, dy) {
+        this.x += dx;
+        this.y += dy;
+      }
+    }
+
+    class Rectangle extends Figure {
+      constructor(x1, y1, x2, y2) {
+        super(x1, y1);
+        this.x2 = x2;
+        this.y2 = y2;
+      }
+
+      move(dx, dy) {
+        super.move(dx, dy);
+        this.x2 += dx;
+        this.y2 += dy;
+      }
+    }
+
+    let rect = new Rectangle(10, 10, 20, 25);
+    rect.move(5, 10);
+    console.log(rect);
+  </script>
+</body>
+
+</html>

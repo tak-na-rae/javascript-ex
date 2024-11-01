@@ -1,0 +1,228 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>241101</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@100..900&display=swap" rel="stylesheet">
+  <style>
+    * { padding:0; margin:0; font-family:"Noto Sans KR", sans-serif; box-sizing:border-box; }
+    a { color:inherit; text-decoration:none; }
+    ul,li { list-style:none; }
+
+    figure{ width:100%; height:100vh; min-height:600px; background:linear-gradient(54deg, violet,skyblue); position:relative; overflow:hidden; }
+    figure h1 { position:absolute; top:7%; left:4%; color:#fff; }
+    figure h1 strong { font-size:36px; }
+    figure h1 span { font-size:12px; opacity:.8; }
+    figure .menu { font-size:24px; color:#fff; position:absolute; top:8%; right:4%; }
+    figure > p { font-size:12px; color:#fff; position:absolute; bottom:7%; left:50%; transform:translateX(-50%); opacity:.8; }
+    section { width:20%; height:65%; margin-top:-25vh; margin-left:-10%; position:absolute; top:140%; left:50%; transition:.35s ease; }
+    article { width:100%; height:100%; position:absolute; top:0; left:0; }
+    article .inner { width:100%; height:100%; padding:5vh 2.5% 8vh; background-color:#f0f7ff; border-radius:10px; opacity:.6; transform:scale(.8); box-shadow:10px 10px 20px rgba(0,0,0,.1); display:flex; align-content:space-between; justify-content:center; flex-wrap:wrap; }
+    article.on .inner { opacity:.9; transform:scale(1.1); }
+    article .inner .pic { width:15vw; height:15vw; margin:0 auto; background-repeat:no-repeat; background-position:200%; position:relative; display:flex; align-items:center; justify-content:center; border-radius:50%; }
+    article .inner .pic::before, article .inner .pic::after { content:''; width:inherit; height:inherit; background-image:inherit; background-position:center; position:absolute; top:0; left:0; border-radius:inherit; transform-origin:center; display:block; }
+    article .inner .pic::before { transform:translateY(10%); filter:blur(20px) brightness(1.6); }
+    article .inner .pic.on::before { animation:ani1 4s linear infinite; }
+    article .inner .pic.on::after { animation:ani2 4s linear infinite; }
+    @keyframes ani1 { 0%{ transform:translateY(10%) rotate(0deg) } 100%{ transform:translateY(10%) rotate(360deg) } }
+    @keyframes ani2 { 0%{ transform:rotate(0deg)} 100%{transform:rotate(360deg) } }
+    article .inner .pic .dot { width:3vw; height:3vw; background:#eee; position:relative; z-index:3; border-radius:50%; box-shadow:inset 5px 5px 10px rgba(0,0,0,.1); }
+    article .inner .txt h2 { line-height:1; margin-bottom:1vh; font-size:20px; color:#222; }
+    article .inner .txt p { margin-bottom:3vh; font-size:12px; color:#777; }
+    article .inner .txt ul { display:flex; justify-content:space-around; }
+    article .inner .txt ul li { opacity:.6; transition:.5s; cursor:pointer; }
+    /* article .inner .txt ul li:hover { transform:scale(1.1); opacity:.8; } */
+    article .inner .txt ul li.play { transform:scale(1.5); opacity:.9; }
+    /* article .inner .txt ul li.play:hover { transform:scale(1.5); opacity:1; } */
+    .btnPrev { width:60px; height:60px; text-align:left; position:absolute; top:50%; left:50%; transform:translate(-20vw, -50%); display:flex; align-items:center; cursor:pointer; }
+    .btnPrev span { color:#fff; transform:translateX(30%); transition:.35s ease; }
+
+  </style>
+</head>
+<body>
+
+  <figure>
+    <h1><strong>CODELAB</strong><br/><span>UI/UX DESIGN</span></h1>
+    <a href="#" class="menu"><i class="fas fa-bars"></i></a>
+    <section>
+      <article class="on"><!--a1-->
+        <div class="inner">
+          <div class="pic">
+            <div class="dot"></div>
+          </div>
+          <div class="txt">
+            <h2>Blizzards</h2>
+            <p>Lorem ipsum dolor sit amet, consectetur adipisicing</p>
+            <ul>
+              <li class="pause"><i class="fas fa-pause"></i></li>
+              <li class="play"><i class="fas fa-play"></i></li>
+              <li class="load"><i class="fas fa-redo-alt"></i></li>
+            </ul>
+            <audio src="music/Blizzards.mp3"></audio>
+          </div>
+        </div>
+      </article>
+      <article><!--a2-->
+        <div class="inner">
+          <div class="pic">
+            <div class="dot"></div>
+          </div>
+          <div class="txt">
+            <h2>Calm</h2>
+            <p>Lorem ipsum dolor sit amet, consectetur adipisicing</p>
+            <ul>
+              <li class="pause"><i class="fas fa-pause"></i></li>
+              <li class="play"><i class="fas fa-play"></i></li>
+              <li class="load"><i class="fas fa-redo-alt"></i></li>
+            </ul>
+            <audio src="music/Calm.mp3"></audio>
+          </div>
+        </div>
+      </article>
+      <article><!--a3-->
+        <div class="inner">
+          <div class="pic">
+            <div class="dot"></div>
+          </div>
+          <div class="txt">
+            <h2>Dusty_Road</h2>
+            <p>Lorem ipsum dolor sit amet, consectetur adipisicing</p>
+            <ul>
+              <li class="pause"><i class="fas fa-pause"></i></li>
+              <li class="play"><i class="fas fa-play"></i></li>
+              <li class="load"><i class="fas fa-redo-alt"></i></li>
+            </ul>
+            <audio src="music/Dusty_Road.mp3"></audio>
+          </div>
+        </div>
+      </article>
+      <article><!--a4-->
+        <div class="inner">
+          <div class="pic">
+            <div class="dot"></div>
+          </div>
+          <div class="txt">
+            <h2>Escape</h2>
+            <p>Lorem ipsum dolor sit amet, consectetur adipisicing</p>
+            <ul>
+              <li class="pause"><i class="fas fa-pause"></i></li>
+              <li class="play"><i class="fas fa-play"></i></li>
+              <li class="load"><i class="fas fa-redo-alt"></i></li>
+            </ul>
+            <audio src="music/Escape.mp3"></audio>
+          </div>
+        </div>
+      </article>
+      <article><!--a5-->
+        <div class="inner">
+          <div class="pic">
+            <div class="dot"></div>
+          </div>
+          <div class="txt">
+            <h2>Payday</h2>
+            <p>Lorem ipsum dolor sit amet, consectetur adipisicing</p>
+            <ul>
+              <li class="pause"><i class="fas fa-pause"></i></li>
+              <li class="play"><i class="fas fa-play"></i></li>
+              <li class="load"><i class="fas fa-redo-alt"></i></li>
+            </ul>
+            <audio src="music/Payday.mp3"></audio>
+          </div>
+        </div>
+      </article>
+      <article><!--a6-->
+        <div class="inner">
+          <div class="pic">
+            <div class="dot"></div>
+          </div>
+          <div class="txt">
+            <h2>Retreat</h2>
+            <p>Lorem ipsum dolor sit amet, consectetur adipisicing</p>
+            <ul>
+              <li class="pause"><i class="fas fa-pause"></i></li>
+              <li class="play"><i class="fas fa-play"></i></li>
+              <li class="load"><i class="fas fa-redo-alt"></i></li>
+            </ul>
+            <audio src="music/Retreat.mp3"></audio>
+          </div>
+        </div>
+      </article>
+      <article><!--a7-->
+        <div class="inner">
+          <div class="pic">
+            <div class="dot"></div>
+          </div>
+          <div class="txt">
+            <h2>Seasonal</h2>
+            <p>Lorem ipsum dolor sit amet, consectetur adipisicing</p>
+            <ul>
+              <li class="pause"><i class="fas fa-pause"></i></li>
+              <li class="play"><i class="fas fa-play"></i></li>
+              <li class="load"><i class="fas fa-redo-alt"></i></li>
+            </ul>
+            <audio src="music/Seasonal.mp3"></audio>
+          </div>
+        </div>
+      </article>
+      <article><!--a8-->
+        <div class="inner">
+          <div class="pic">
+            <div class="dot"></div>
+          </div>
+          <div class="txt">
+            <h2>Vespers</h2>
+            <p>Lorem ipsum dolor sit amet, consectetur adipisicing</p>
+            <ul>
+              <li class="pause"><i class="fas fa-pause"></i></li>
+              <li class="play"><i class="fas fa-play"></i></li>
+              <li class="load"><i class="fas fa-redo-alt"></i></li>
+            </ul>
+            <audio src="music/Vespers.mp3"></audio>
+          </div>
+        </div>
+      </article>
+    </section>
+
+    <div class="btnPrev"><span>PREV</span></div>
+    <div class="btnNext"><span>NEXT</span></div>
+    <p>2024 Design by CODELAB</p>
+  </figure>
+  
+  <script src="https://kit.fontawesome.com/632d3e2496.js" crossorigin="anonymous"></script>
+  <script>
+    const frame = document.querySelector('section');
+    const lists = frame.querySelectorAll('article');
+    const deg = 45; //article이 회전할 각도
+    const leng = lists.length - 1;
+    let i = 0; //카운트
+
+    for(let el of lists){
+      const pic = el.querySelector('.pic');
+      el.style.transform = `rotate(${deg * i}deg) translateY(-100vh)`;
+      pic.style.backgroundImage = `url(images/241101_member${i+1}.jpg)`;
+      i++;
+
+      const play = el.querySelector('.play');
+      const pause = el.querySelector('.pause');
+      const load = el.querySelector('.load');
+      play.addEventListener('click', (e)=>{
+        e.currentTarget.closest('article').querySelector('.pic').classList.add('on');
+        e.currentTarget.closest('article').querySelector('audio').play();
+      })
+      pause.addEventListener('click', (e)=>{
+        e.currentTarget.closest('article').querySelector('.pic').classList.remove('on');
+        e.currentTarget.closest('article').querySelector('audio').pause();
+      })
+      load.addEventListener('click', (e)=>{
+        e.currentTarget.closest('article').querySelector('.pic').classList.add('on');
+        e.currentTarget.closest('article').querySelector('audio').load();
+        e.currentTarget.closest('article').querySelector('audio').play();
+      })
+    }
+
+  </script>
+</body>
+</html>

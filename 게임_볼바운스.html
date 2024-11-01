@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>241101</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@100..900&display=swap" rel="stylesheet">
+  <style>
+    * { padding:0; margin:0; font-family:"Noto Sans KR", sans-serif; box-sizing:border-box; }
+    .barrier { max-width:400px; padding:16px 0; margin:0 auto; }
+    #space { margin:auto; background:transparent url(images/241101_space.jpg); display:block; }
+  </style>
+</head>
+<body>
+  
+  <div class="barrier">
+    <label>장애물</label>
+    <select id="barrierNum">
+      <option value="0">0</option>
+      <option value="1">1</option>
+      <option value="2">2</option>
+      <option value="3">3</option>
+      <option value="4">4</option>
+    </select>
+  </div>
+  <canvas id="space" width="400" height="400"></canvas>
+
+  <script>
+    let cv; //캔버스 담을 변수
+    let cvW, cvH; //캔버스 크기
+    let ctx; //getContext() 담을 변수
+    let itrId; //setInterval 담을 변수
+    let direction; //키보드 방향값 담을 변수
+    let score = 0; //정수를 담을 변수
+
+    addEventListener('load', function(){
+      cv = document.getElementById('space');
+      ctx = cv.getContext('2d');
+      cvW = cv.width;
+      cvH = cv.height;
+      document.addEventListener('keydown', keyControl)
+      help();
+    })
+
+    function help(){
+      ctx.font = '18px Courier';
+      ctx.fillStyle = '#fff';
+      ctx.textAlign = 'center';
+      ctx.fillText('볼 바운스 게임 도움말', 200, 130);
+      ctx.fillText('게임 시작 : space bar', 200, 180);
+      ctx.fillText('바 조절 : 왼쪽(<-), 오른쪽(->)', 200, 230);
+    }
+
+    function keyControl(event){
+      // console.log(event.keyCode)
+      let selection = { //누른 키코드의 속성이름으로 값을 할당
+        32 : 'startGame',
+        37 : 'left',
+        39 : 'right',
+      }
+      // startGame(32) : 누른 버튼이 32가 아니면 입력한 키값 할당
+      selection[event.keyCode] == 'startGame' ? playGame() : direction = selection[event.keyCode];
+    }
+
+    const ball = {
+      x: 200,
+      y: 200,
+      xspeed: -2,
+      yspeed: 3,
+      radius: 10,
+      draw: function(){
+        ctx.beginPath();
+        ctx.arc(this.x, this.y, this.radius, 0, Math.PI*2);
+        ctx.fillStyle = '#fff';
+        ctx.fill();
+      },
+      move: function(){ //볼의 위치를 이동시킴
+        this.x += this.xspeed;
+        this.y += this.yspeed;
+      },
+      checkWall: function(){ //볼이 캔버스 벽에 닿았을때 반대로
+        if(this.x < 0 || this.x > cvW) this.xspeed = -this.xspeed;
+        if(this.y < 0 || this.y > cvH) this.yspeed = -this.yspeed;
+      }
+    }
+
+    const bar = { //바 객체 생성
+      x: 100,
+      y: 300,
+      barWidth: 50,
+      barHeight: 3,
+      moveSpace: 20, //바의 이동값
+      draw: function(){
+        ctx.fillStyle = this.barColor;
+        ctx.fillRect(this.x, this.y, this.barWidth, this.barHeight);
+      },
+      move: function(){ //바의 위치를 이동시킴
+        if(direction == 'right'){
+          this.x += this.moveSpace; //바를 현재 위치에서 이동값만큼 더해서 이동
+          if(this.x > cvW - this.barWidth){ //바를 오른쪽 밖으로 나가지않게 막음
+            this.x = cvW - this.barWidth;
+          }
+        }else if(direction == 'left'){
+          this.x -= this.moveSpace; //바를 현재 위치에서 이동값만큼 빼고 이동
+          if(this.x < 0){ //바를 왼쪽 밖으로 나가지않게 막음
+            this.x = 0;
+          }
+        }
+        direction = '';//방향값을 비워줌
+      },
+      bounceCheck: function(ball){ //충돌체크
+        if(ball.x >= this.x &&
+           ball.x <= this.x + this.barWidth &&
+           ball.y >= this.y &&
+           ball.y <= this.y + this.barHeight
+          ){
+            ball.yspeed = -ball.yspeed;
+            score++; //닿았을때 1점씩 증가
+        }
+      }
+    }
+
+    function drawScore(){
+      ctx.font = '20px Courier';
+      ctx.fillStyle = '#fff';
+      ctx.textAlign = 'left';
+      // ctx.textBaseline = 'top'; //vertical-align
+      ctx.fillText('score : ' + score, 10, 30); //위치 10,30
+    }
+
+    function gameOver(ball){ //볼이 바닥에 닿으면
+      if(ball.y > cvH){
+        clearInterval(intervalId);
+        ctx.font = '22px Courier';
+        ctx.fontStyle = '#fff';
+        ctx.textAlign = 'center';
+        ctx.fillText('GAME OVER', cvW/2, cvH/2);
+      }
+    }
+
+    // function barrierGen(barrierArr, barrierNum){
+    //   let locationW = cvW - bar.barWidth;
+    // }
+
+    function playGame(){
+      const barrierId = document.getElementById('barrierNum');
+      let barrierIdx = barrierId.selectedIndex;
+      let barrierNum = barrierId.options[barrierIdx].value;
+      let barrierArr = new Array();
+
+      // barrierGen(barrierArr, barrierNum);
+    
+
+      intervalId = setInterval(function(){
+        ctx.clearRect(0,0,cvW,cvH);
+        ball.draw(); //캔버스에 볼을 그림
+        ball.move(); //볼 위치 이동
+        ball.checkWall(); //볼 영역에서만
+        bar.draw(); //캔버스에 바를 그림
+        bar.move(); //바 위치 이동
+        bar.bounceCheck(ball); //볼객체를 파라미터로 전달
+        drawScore(); //스코어 표시
+        gameOver(ball); //게임종료
+      }, 20) //0.02초마다 화면을 지우고 메서드 실행
+    }
+
+
+  </script>
+</body>
+</html>
