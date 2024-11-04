@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>241104</title>
+</head>
+<body>
+  
+  <script>
+    const num = [1,4,9];
+    const roots = num.map(item => Math.sqrt(item)); //sqrt제곱근 계산
+    //순회하면서 콜백 함수를 반복호출 > 콜백함수의 반환값들로 구성된 새로운 배열을 반환
+
+    // console.log(num);
+    // console.log(roots);
+
+    class Prefixer {
+      constructor(prefix){
+        this.prefix = prefix;
+      }
+      add(arr){
+        return arr.map(item => this.prefix + item);
+      }
+    }
+
+    //1.scores  배열의 각 점수를 0 과 1  사이의 비율로 변환하여 새로운 배열을 만드세요
+    const score = [50, 75, 100, 25, 0]; //출력 [0.5, 0.75, 1, 0.25, 0]
+    const result1 = score.map(el => el / 100);
+    // console.log(result);
+
+    // 2.주어진 문자열 배열의 각 문자열에 대해 그 길이를 계산하여 새로운 배열을 생성하세요
+    const strings = ["apple", "banana", "cherry"]; //출력 [5, 6, 6]
+    const lts = strings.map(el => el.length);
+    // console.log(lts);
+    
+    // 3.각 객체의 name  속성만을 추출하여 새로운 배열을 생성하세요
+    const users = [ //출력 ["Alice", "Bob", "Charlie"]
+      { name: "Alice", age: 25 },
+      { name: "Bob", age: 30 },
+      { name: "Charlie", age: 35 }
+    ];
+    
+    const names = users.map(el => el.name);
+    console.log(names);
+
+  </script>
+</body>
+</html>

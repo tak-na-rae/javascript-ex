@@ -62,15 +62,16 @@
       }
       // startGame(32) : 누른 버튼이 32가 아니면 입력한 키값 할당
       selection[event.keyCode] == 'startGame' ? playGame() : direction = selection[event.keyCode];
+      // console.log("key: "+event.keyCode+ ", value :"+selection[event.keyCode]);
     }
 
     const ball = {
       x: 200,
       y: 200,
-      xspeed: -2,
-      yspeed: 3,
+      xspeed: -2, //x이동값
+      yspeed: 3, //y이동값
       radius: 10,
-      draw: function(){
+      draw: function(){ //볼을 그려줌
         ctx.beginPath();
         ctx.arc(this.x, this.y, this.radius, 0, Math.PI*2);
         ctx.fillStyle = '#fff';
@@ -92,6 +93,7 @@
       barWidth: 50,
       barHeight: 3,
       moveSpace: 20, //바의 이동값
+      barColor: '#fff',
       draw: function(){
         ctx.fillStyle = this.barColor;
         ctx.fillRect(this.x, this.y, this.barWidth, this.barHeight);

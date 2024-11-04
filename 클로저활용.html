@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>241104</title>
+</head>
+<body>
+  
+  <script>
+    let num = 0;
+    const increase = function(){
+      return ++num;
+    }
+    // console.log(increase())
+    // console.log(increase())
+    // console.log(increase())
+
+    // ======================
+
+    const counter = (function(){ //(function(){ 함수 생성과 동시에 호출되는 즉시실행함수
+      let ct = 0;
+      return function(aux){
+        ct = aux(ct);
+        return ct;
+      }
+    }())
+    function increase1(n){
+      return ++n; //인자로 전달받은 n에 1을 증가시켜 호출한 곳으로 리턴
+    }
+    function decrease1(n){
+      return --n;
+    }
+
+    console.log(counter(increase1))
+  </script>
+</body>
+</html>

@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>241104</title>
+</head>
+<body>
+  
+  <script>
+    const person = (function(){
+      let _age = 0; //값을 은닉할때 _name
+
+      function person(name, age){
+        this.name = name; //public
+        _age = age;
+      }
+      person.prototype.sayHi = function(){
+        console.log(`Hi! My name is ${this.name}. I am ${_age}.`)
+      };
+      return person;
+    }())
+
+    const me = new person('Leee', 20);
+    me.sayHi();
+    console.log(me.name); //Leee
+    console.log(me._age); //undefined
+    
+    const you = new person('Kim', 30);
+    you.sayHi();
+    console.log(you.name); //Kim
+    console.log(you._age); //undefined
+  </script>
+</body>
+</html>

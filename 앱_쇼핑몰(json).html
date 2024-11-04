@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>241104</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@100..900&display=swap" rel="stylesheet">
+  <style>
+    * { padding:0; margin:0; font-family:"Noto Sans KR", sans-serif; box-sizing:border-box; }
+    a { color:inherit; text-decoration:none; }
+    ul,li { list-style:none; }
+    
+    :root {
+      --color-black: #3f454d;
+      --color-white: #ffffff;
+      --color-blue: #3b88c3;
+      --color-yellow: #fbbe28;
+      --color-pink: #fd7f84;
+      --color-light-grey: #dfdfdf;
+
+      --base-space: 8px;
+      --size-button: 40px;
+      --size-border: 4px;
+      --size-thumbnail: 50px;
+      --font-size: 16px;
+
+      --animation-duration: 300ms;
+    }
+
+    body {
+      height: 100vh;
+      background-color: var(--color-black);
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+    }
+
+    .logo {
+      cursor: pointer;
+      transition: transform var(--animation-duration) ease;
+    }
+
+    .btn {
+      background-color: transparent;
+      border: none;
+      outline: none;
+      cursor: pointer;
+      transition: transform var(--animation-duration) ease;
+      margin-right: var(--base-space);
+    }
+
+    .btn:hover,
+    .logo:hover {
+      transform: scale(1.1);
+    }
+
+    .buttons {
+      display: flex;
+      align-items: center;
+      padding: 4px;
+    }
+
+    .imgBtn {
+      width: var(--size-button);
+      height: var(--size-button);
+    }
+
+    .colorBtn {
+      font-size: var(--font-size);
+      padding: calc(var(--base-space) * 1.5) var(--base-space);
+      border-radius: var(--size-border);
+    }
+
+    .blue {
+      background-color: var(--color-blue);
+    }
+
+    .yellow {
+      background-color: var(--color-yellow);
+    }
+
+    .pink {
+      background-color: var(--color-pink);
+    }
+
+    .items {
+      width: 80%;
+      height: 90%;
+      list-style: none;
+      padding-left: 0;
+      overflow-y: scroll;
+    }
+
+    .items::-webkit-scrollbar {
+      width: 10px;  
+    }
+
+    .items::-webkit-scrollbar-thumb {
+      background: #888;
+      border-radius: 10px;
+    }
+
+    .items::-webkit-scrollbar-track {
+      background: rgba(255, 255, 255, 0.8);
+    }
+
+    .item {
+      background-color: var(--color-white);
+      display: flex;
+      align-items: center;
+      padding: var(--base-space);
+      margin-bottom: var(--base-space);
+    }
+
+    .item__thumbnail {
+      width: var(--size-thumbnail);
+      height: var(--size-thumbnail);
+    }
+
+    .item__description {
+      margin-left: var(--base-space);
+      font-size: var(--font-size);
+    }
+  </style>
+  
+</head>
+<body>
+  
+  <img src="images/241104_logo.png" class="logo" alt="로고 이미지"/>
+  <div class="btns">
+    <button class="btn">
+      <img src="images/241104_blue_t.png" class="imgBtn" data-key="type" data-value="tshirt" alt="tshirt"/>
+    </button>
+    <button class="btn">
+      <img src="images/241104_blue_p.png" class="imgBtn" data-key="type" data-value="pants" alt="pants"/>
+    </button>
+    <button class="btn">
+      <img src="images/241104_blue_s.png" class="imgBtn" data-key="type" data-value="skirt" alt="skirt"/>
+    </button>
+    <button class="btn colorBtn blue" data-key="color" data-value="blue">Blue</button>
+    <button class="btn colorBtn yellow" data-key="color" data-value="yellow">Yellow</button>
+    <button class="btn colorBtn pink" data-key="color" data-value="pink">Pink</button>
+  </div>
+  <ul class="items"></ul>
+
+  <script>
+    //JSON 파일에서 항목 가져오기 "items": [
+    function loadItems(){ // loadItems은 data.json의 items배열을 반환
+      return fetch('json/241104_data.json').then(res => res.json()) //fetch는 Promise자체를 반환 //json으로 읽음
+      .then(json => json.items);
+    }
+
+    function displayItems(items){
+      const container = document.querySelector('ul.items');
+      container.innerHTML = items.map(el => createHTMLString(el)).join(''); //container안에 내용을 채워줌
+    }
+    function createHTMLString(el){ //주어진 데이터 항목에 HTML 목록 만듦
+      return `
+        <li class="item">
+          <img src="${el.image}" class="item__thumbnail" alt="${el.type}"/>
+          <span class="item__description">${el.gender}, ${el.size}</span>
+        </li>
+      `;
+    }
+    function setEventListener(items){ //items는 data.json
+      const logo = document.querySelector('.logo');
+      const buttons = document.querySelector('.btns');
+      logo.addEventListener('click', ()=> displayItems(items));
+      buttons.addEventListener('click', (e)=> onButtonClick(e, items));
+    }
+    function onButtonClick(e,items){
+      const dataset = e.target.dataset;
+      const key = dataset.key; //key에 data-key속성 할당
+      const val = dataset.value; 
+
+      if(key == null || val == null) return; //key,value 둘 다 비어있으면 return으로 함수 종료시킴
+
+      displayItems(items.filter(el => el[key] == val));
+    }
+
+    loadItems().then(items => {
+      // console.log(items);
+      displayItems(items); //items 인자로 전달
+      setEventListener(items);
+    })
+    .catch(console.log);
+  </script>
+</body>
+</html>
