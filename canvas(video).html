@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>241105</title>
+  <style>
+    .vid { width:0; height:0; position:absolute; }
+    .cv { background-color:#eee; }
+  </style>
+</head>
+<body>
+
+  <video src="images/241030_video.mp4" class="vid" autoplay muted loop></video>
+  <canvas class="cv" width="600" height="400"></canvas>
+  <div class="btns">
+    <button class="btn" data-color="red">RED</button>
+    <button class="btn" data-color="green">GREEN</button>
+    <button class="btn" data-color="blue">BLUE</button>
+    <button class="btn" data-color="">RESET</button>
+  </div>
+
+  <script>
+    const cv = document.querySelector('canvas');
+    const ctx = cv.getContext('2d');
+    ctx.font = 'bold 24px serif';
+    ctx.fillStyle = '#fff';
+    ctx.fillText('Loading..', 300, 200);
+
+    const vidEl = document.querySelector('video');
+    vidEl.addEventListener('canplaythrough', render);
+
+    const msg = [
+      { time: 1, message: '1 ㅋㅋ', x:100, y:100 },
+      { time: 3, message: '2 ㅋㅎ', x:300, y:300 },
+      { time: 5, message: '3 ㅎㅎ', x:500, y:100 },
+    ]
+
+    const btns = document.querySelector('.btns');
+    let imgData;
+    let colorVal;
+
+    function render(){
+      ctx.drawImage(vidEl, 0, 0, 600, 400);
+
+      imgData = ctx.getImageData(0, 0, cv.width, cv.height);
+
+      for(let i = 0; i < imgData.data.length; i += 4){
+        switch(colorVal) {
+          case 'red' :
+            imgData.data[i + 0] = 100;
+            break;
+          case 'green' :
+            imgData.data[i + 1] = 100;
+            break;
+          case 'blue' :
+            imgData.data[i + 2] = 100;
+            break;
+        }
+      }
+      ctx.putImageData(imgData, 0, 0);
+
+      for(let i = 0; i < msg.length; i++){
+        if(vidEl.currentTime > msg[i].time) ctx.fillText(msg[i].message, msg[i].x, msg[i].y);
+      }
+      requestAnimationFrame(render);
+    }
+
+    btns.addEventListener('click', e => {
+      colorVal = e.target.getAttribute('data-color');
+    })
+  </script>
+</body>
+</html>

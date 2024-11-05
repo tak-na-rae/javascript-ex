@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>241105</title>
+  <style>
+    * { padding:0; margin:0; box-sizing:border-box; }
+    html { width:100%; height:100%; }
+    img { width:150px; margin:4px; display:flex; flex:1; }
+    #container { max-width:470px; margin:auto; border:1px solid red; }
+    #photos { width:100%; display:flex; flex-wrap:wrap; }
+  </style>
+</head>
+<body>
+  
+  <div id="container">
+    <div id="photos"></div>
+  </div>
+
+  <!-- https://jsonplaceholder.typicode.com/photos?_page=1&_limit=10 -->
+  <script>
+    // _limit=10 : 데이터를 10개 제한
+    // _page=1 : 1이면 1~10까지, 2면 11~20까지 가져옴
+    const getPhotos = page => {
+      const url = `https://jsonplaceholder.typicode.com/photos?_page=${page}&_limit=10`; //페이지 번호를(page)를 인자로 받아 해당 페이지의 사진을 가져오는 URL 생성
+      return fetch(url).then(response => response.json()) //fetch를 통해 URL로 요청을 보내고 받은 응답을 JSON 형태로 변환하여 반환
+    }
+    // getPhotos(1).then(data => { console.log(data) })
+
+    // getPhotos에서 리턴받은 데이터에서 썸네일URL만 추출하여 배열로 반환
+    const mapPhotos = photos => {
+      return photos.map(el => {
+        return { url : el.thumbnailUrl }
+      })
+    }
+    getPhotos(1).then(data => {
+      console.log(mapPhotos(data))
+    })
+
+    const createImgEl = photo => {
+      const img = document.createElement('img');
+      img.src = photo.url;
+      return img;
+    }
+    const createPhotoEl = photo => {
+      return photo.map(createImgEl);
+    }
+    
+    getPhotos(1).then(data => {
+      const testData = mapPhotos(data);
+      console.log(createImgEl(testData[0]));
+    })
+
+    const appendPhotoEl = (photoEl, el) => {
+      return el?.append(...photoEl);
+    }
+
+
+    // getPhotos(1).then(data => {
+    //   const testData = mapPhotos(data);
+    //   const photoElTest = createPhotoEl(testData);
+    //   appendPhotoEl(photoElTest, document.querySelector('#photos'));
+    // })
+
+    //파이프라인 패턴 이용해서 함수 합성
+    const pipe = (...fns) => arg =>
+    fns.reduce((result,fn) =>(
+        fn instanceof Function ? result.then(fn) : result
+      ), Promise.resolve(arg)
+    )
+
+    //$함수는 css선택자를 인자로 받아 해당 DOM요소를 반환하는 헬퍼 함수
+    const $ = el => document.querySelector(el); //${'#photos'}
+
+    const processPhotos = pipe(
+      getPhotos,
+      mapPhotos,
+      createPhotoEl,
+      (photoEl) => appendPhotoEl(photoEl, $('#photos'))
+    )
+    processPhotos(1); //처음 페이지를 불러올때 페이지 1을 전달
+
+    const getNextPhoto = (() => {
+      let page = 1; //현재 페이지 번호 추적하는 변수
+      let isFetching = false; //중복호출 방지
+      return () => { //함수반환(클로저 패턴)
+        if(!isFetching) isFetching = true;
+        const nextPage = ++page;
+        processPhotos(nextPage).then(()=>{
+          isFetching = false; //데이터 성공적으로 가져온 후 다시 false로 설정하여 호출 가능하게 바꿈
+        });
+      }
+    })()
+
+    addEventListener('scroll', ()=>{
+      const scrollPos = innerHeight + scrollY;
+      const bodyHeight = document.body.offsetHeight; //문서전체높이
+      if(scrollPos >= bodyHeight) getNextPhoto();
+    })
+  </script>
+</body>
+</html>

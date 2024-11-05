@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>241105</title>
+</head>
+<body>
+  
+  <script>
+    const ingAddr = (ingradient) => (input) => console.log(`${input}, ${ingradient}`);
+    const bacon = ingAddr('Bacon');
+    const lettuce = ingAddr('Lettuce');
+    const cheese = ingAddr('Cheese');
+
+    const compose = (...functions) => input => functions.reduceRight((acc,func) => func(acc),input);
+    const makeSandwich = bread => compose(cheese, lettuce, bacon)(bread);
+    makeSandwich('White Bread');
+
+    const pipe = (...functions) => input => functions.reduce((acc,func) => func(acc),input);
+    const makeSandwich2 = bread => pipe(bacon, lettuce, cheese)(bread);
+    makeSandwich2('Black Bread');
+  </script>
+</body>
+</html>

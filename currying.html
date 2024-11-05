@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>241105</title>
+</head>
+<body>
+  
+  <script>
+    function makeCoffee(roast){
+      return function(sugar){
+        return function(cream){
+          return console.log(`${roast} : ${sugar} : ${cream}`);
+        }
+      }
+    }
+
+    makeCoffee('Dark Roast')(1)(2);
+
+    const mediumRoast = makeCoffee('Medium Roast'); //고정값
+    
+    //주문들어왔다가정
+    const order1 = mediumRoast(1)(2);
+    const order2 = mediumRoast(2)(3);
+
+    const ingAdder = (ingredient) => (input) => console.log(`${input}, ${ingredient}`);
+    
+    const bacon = ingAdder('Bacon');
+    const lettuce = ingAdder('Lettuce');
+    const cheese = ingAdder('Cheese');
+    const makeSandwich = bread => cheese(lettuce(bacon(bread)));
+    makeSandwich('White Bread');
+  </script>
+</body>
+</html>
