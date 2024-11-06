@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>241006</title>
+</head>
+<body>
+  
+  <script>
+    function delay(ms){
+      return new Promise (resolve => {
+        setTimeout(() => {
+          console.log(`${ms}`);
+          resolve()
+        }, ms);
+      })
+    }
+
+    async function main(){
+      await delay(1000);
+      await delay(1000);
+      const result = await Promise.resolve('끝');
+    }
+
+    main();
+  </script>
+</body>
+</html>
