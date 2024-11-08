@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>241108</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
+  <style>
+    * { font-size:inherit; }
+      #space {
+        margin: 0 auto;
+        display: block;
+        /* background-image: url("images/241108_space.png"); */
+        background:transparent url("images/241108_space.png")no-repeat left center/cover;
+      }
+  </style>
+</head>
+<body>
+  
+  <canvas id="space" width="550" height="550"></canvas>
+
+  <script>
+    let cv = null;//캔버 요소를 참조하는 변수
+    let ctx = null;//캔버스 2d그리기 컨텍스트를 나타내는 변수
+    let cvW = 0, cvH = 0;//캔버스 넓이와 높이를 저장할 변수
+    let intervalId = null; //게임 루프를 제어하는데 사용
+    let direction = null; //이동 방향을 나타내는 변수
+    let score = 0;
+    let pooSpeed = 2.5; //똥 내려오는 속도 조절 변수
+    let spaceFlag = true; //중도 스페이스바 방지 
+
+    addEventListener('load', ()=>{
+      cv = document.getElementById("space");
+      ctx = cv.getContext("2d");
+      cvW = cv.width;
+      cvH = cv.height;
+      help(); //게임의 도움말을 캔버스에 표시할 함수
+      document.addEventListener("keydown", keyControl);
+    })
+
+    function help(){ //===도움말
+      ctx.font = "16px Noto Sans";
+      ctx.fillStyle = "#222";
+      ctx.textAlign = "center";
+      ctx.fillText("** 강아지 똥 피하기 게임 **", 270, 130);
+      ctx.fillText("게임시작 : Space Bar", 270, 170);
+      ctx.fillText("움직임 : 왼쪽(←) 오른쪽(→)", 270, 200);
+    }
+
+    function keyControl(event){ //===키제어
+      let selection = { //32스페이스바, 37왼쪽, 39오른쪽
+        32 : "start",
+        37 : "left",
+        39 : "right",
+      }
+      // console.log(selection[event.keyCode]);
+      // selection[event.keyCode] == 'start' ? playGame() : direction = selection[event.keyCode];
+      if(selection[event.keyCode] == 'start'){
+        if(spaceFlag){
+          spaceFlag = false;
+          playGame();
+        }
+      } else{
+        direction = selection[event.keyCode]
+      };
+    }
+
+    const Dog = { //===강아지
+      x: 100, //좌표값
+      y: 400,
+      dogW: 80, //크기
+      dogH: 80,
+      moveSpace: 20, //1번 이동거리
+      dogSrc : "images/241108_dogRight.png", //이미지 소스 경로
+      draw: function(){ //그려줌
+        this.dogImg = new Image(); //이미지 객체 생성해서 dogImg속성에 할당
+        this.dogImg.src = this.dogSrc; //이미지 그려줌
+        ctx.drawImage(this.dogImg, this.x, this.y, this.dogW, this.dogH);
+      },
+      move: function(){ //왼쪽 또는 오른쪽으로 이동시킴
+        if(direction == 'left'){ //왼쪽 이동
+          this.x -= this.moveSpace;
+          if(this.x < 0) this.x = 0;
+          this.dogSrc = "images/241108_dogLeft.png" // 오른쪽 강아지로 이미지 변경
+        }
+        else if(direction == 'right') { //오른쪽 이동
+          this.x += this.moveSpace;
+          if(this.x > cvW - this.dogW) this.x = cvW - this.dogW;
+          this.dogSrc = "images/241108_dogRight.png" // 오른쪽 강아지로 이미지 변경
+        }
+        direction = ""; //방향 초기화(방향키 한번에 한번만 이동)
+      }
+    }
+
+    const Poo = function(){ //===똥 이미지 객체를 생성할 생성자 함수(생성자함수는 암묵적으로 파스칼)
+      this.ySpeed = pooSpeed; // 똥 y축 이동속도
+      this.pooW = 40; //넓이
+      this.pooH = 40; //높이
+      this.x = Math.floor(Math.random() * (cvW - this.pooW)); //위치값 (0 ~ cvW - this.pooW 사이의 랜덤 위치)
+      this.y = Math.floor(Math.random() * cvH/3); //위치값 (0 ~ cvH/3 사이의 랜덤 위치)
+      
+      this.draw = function(){ //그려줌
+       const pooImg = new Image();
+       pooImg.src = "images/241108_dong.png",
+       ctx.drawImage(pooImg, this.x, this.y, this.pooW, this.pooH);
+      }
+      this.move = function(){
+        this.y += this.ySpeed;
+      }
+      this.checkBoom = function(dogEl){ //강아지와 똥 충돌여부 검사, 호출할때 강아지 객체 전달받음
+        console.log('boom==',dogEl);
+        let centerX = this.x + this.pooW/2; //똥 중심위치 구함
+        let centerY = this.y + this.pooH/2;
+        let boomRange = 0; //충돌범위(높으면 넓어짐)
+
+        if( //똥 가운데를 기준으로 강아지 중심 boomRange 범위 안에 들어오면 gameOver()
+          centerX >= dogEl.x - boomRange && centerX <= dogEl.x + dogEl.dogW + boomRange &&
+          centerY >= dogEl.y - boomRange && centerY <= dogEl.y + dogEl.dogH + boomRange
+        ){ gameOver(); };
+        if(centerY > 520){ //똥의 위치가 450보다 크면 바닥과 충돌한것으로 간주하고 랜덤으로 초기화
+          this.x = Math.floor(Math.random() * (cvW - this.pooW));
+          this.y = Math.floor(Math.random() * cvH/3);
+          score++; //점수증가
+        };
+      }
+    }
+
+    function playGame(){ //===게임을 시작하고 게임 루프를 설정
+      const pooNum = 8; //생성할 똥 객체 수
+      const pooArr = new Array(); //똥 객체 담을 배열 생성
+      for(let i = 0; i < pooNum; i++){
+        pooArr[i] = new Poo();
+      }
+
+      //.02초마다 반복호출
+      intervalId = setInterval(function(){
+        ctx.clearRect(0, 0, cvW, cvH);
+
+        for(let i = 0; i < pooNum; i++){
+          pooArr[i].move();
+          pooArr[i].draw();
+          pooArr[i].checkBoom(Dog); //똥 객체의 checkBoom 메서드로 Dog객체를 전달하여 충돌했는지 확인
+        }
+
+        Dog.move(); //강아지 이동
+        Dog.draw(); //강아지 그려줌
+        drawScore();
+      },20)
+    }
+
+    async function gameOver(){ //===게임종료
+      await clearInterval(intervalId);
+      ctx.font = "bold 32px Noto Sans";
+      ctx.fillStyle = "#222";
+      ctx.textAlign = "center";
+      ctx.fillText("GAME OVER", cvW/2, cvH/2);
+      spaceFlag = true;
+    }
+
+    function drawScore(){ //===스코어 표시
+      ctx.font = "20px Noto Sans";
+      ctx.fillStyle = "darkGreen";
+      ctx.textAlign = "left";
+      ctx.fillText("점수 " + score, 30, 50);
+    }
+  </script>
+</body>
+</html>
