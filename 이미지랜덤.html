@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>241122</title>
+  <style>
+    img {
+      width: 200px;
+      height: 200px;
+      object-fit: cover;
+    }
+  </style>
+</head>
+<body>
+  <img src="images/240927_p1.jpg"/>
+  <img src="images/240927_p2.jpg"/>
+  <img src="images/240927_p3.jpg"/>
+  <img src="images/240927_p4.jpg"/>
+
+  <script>
+    let max = 20, min = 1;
+
+    const imgs = document.querySelectorAll('img');
+    imgs.forEach( el=> el.addEventListener('click', ()=>{ //모든 이미지 요소에 클릭이벤트 발생
+      // let n = Math.ceil(Math.random() * 20);
+      let n = Math.floor(Math.random() * (max-min+1) + min);
+      console.log(n);
+      el.src = `images/240927_p${n}.jpg`
+    }))
+  </script>
+</body>
+</html>

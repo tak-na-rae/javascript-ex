@@ -32,6 +32,19 @@
     }
     const boundShowA = showA.bind(obj);
     console.log(boundShowA());
+
+    //===241122
+    let rectangle = {
+      width: 5,
+      height: 5,
+      method(){
+        let getArea1 = function(){
+          return this.width * this.height;
+        }
+        let getArea2 = getArea1.bind(rectangle);
+      }
+    }
+
   </script>
 </body>
 </html>

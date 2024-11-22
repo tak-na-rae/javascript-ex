@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>241122</title>
+</head>
+<body>
+
+  <script>
+    //배열 분해
+    let a = [1,2];
+    let b = [3,4];
+    let c = [5,6];
+
+    let m = [a, b, c];
+    
+    let n = [...a, ...b, ...c];
+    console.log(n);
+
+    const print = (params)=>{
+    // const print = (...params)=>{ //배열로 가져옴
+      console.log(params[1]); //"two"
+      console.log(params.indexOf("two")); //three의 idx
+      console.log(params); //['one', 'two', 'three']
+      console.log(params.length); //3
+    }
+    let d = ["one", "two", "three"];
+    print(d);
+
+    // 객체분해할당
+    let person1 = {name:"홍길동", age:16};
+    let person2 = {...person1, email:"email@email.com"};
+    
+    console.log('111===', person1); //{name: '홍길동', age: 16}
+    console.log('111===', person2); //{name: '홍길동', age: 16, email: 'email@email.com'}
+
+    person2.name = "임꺽정";
+    console.log('222===', person1); //{name: '홍길동', age: 16}
+    console.log('222===', person2); //{name: '임꺽정', age: 16, email: 'email@email.com'}
+
+    let person3 = person1;
+    // let person3 = {...person1};
+    person3.name = "김철수";
+    console.log('333===', person3); //{name: '김철수', age: 16}
+    console.log('333===', person1); //{name: '김철수', age: 16}
+    
+  </script>
+  
+</body>
+</html>
